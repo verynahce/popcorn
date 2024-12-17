@@ -13,7 +13,7 @@
 </head>
 <body>
   <main>
-	<h2>Home</h2>
+	<h2>Home1</h2>
   </main>	
 </body>
 </html>
