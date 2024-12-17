@@ -49,8 +49,12 @@ position: relative;
 main {
 
 width: 1200px;
+position: absolute;
+left: 50%; 
 margin-bottom: 80px;
+transform: translateX(-50%); 
 }   
+
 
 #icon_back {
 width: 43px;
@@ -63,18 +67,14 @@ aside {
 width: 271px; 
 height: 286px;
 border: 10px solid #00FF84;
-/*position: absolute;
-right: calc(50% - 600px - 300px);*/
-    position: sticky; /* 스크롤 시 고정 */
-    top: 20px; /* 상단에서 거리 설정 */
-    margin-left: calc(50% - 600px - 300px); /* right 대신 margin-left로 위치 조정 */
-    height: fit-content;
+position: fixed;
+right: calc(50% - 600px - 300px);
+
 }
 
 .title{
 border: 2px solid #BDFF91;
 margin-top: 30px;
-
 padding: 40px 50px 30px 50px;
 }  
 
@@ -115,7 +115,11 @@ width: 33%;
 display:flex;
 align-items: center; /* 수직 중앙 정렬 */
 justify-content: center;
-height: 100%
+height: 100%;
+
+&:hover{
+color:white;
+}
 }
 
 }
@@ -259,7 +263,11 @@ width: 215px;
 font-size: 28px; 
 font-weight: 600;
 border: 1px solid #ffffff;
-	
+
+&:hover{
+background:#00FF84;
+cursor: pointer;
+}	
 }
 .content_title{
 display:flex;
@@ -390,12 +398,22 @@ color: #ffffff;
 margin-top: 20px;
 }
 }
+
+.share:hover{
+background: #767676;
+cursor: pointer;
+}
+.bookmark:hover{
+background: #767676;
+cursor: pointer;
+}
+
 </style>
 </head>
 <body>
 <a href="/info2">예시보기</a>
 <div class="container">
-  <span><img id="icon_back" src="/images/icon/back.png" alt="뒤로가기"></span>
+  <img id="icon_back" src="/images/icon/back.png" alt="뒤로가기">
   <main>
     <div class="swiper-container">
   <div class="swiper-wrapper">
@@ -432,7 +450,7 @@ margin-top: 20px;
       </div>
       <div class="title_click" >
        <div class="bookmark"><img src="/images/icon/star.png"><p>찜하기</p></div>&nbsp;
-       <div class="share"><img src="/images/icon/share1.png"><p>공유하기</p></div>&nbsp;
+       <div class="share" onclick="clipboard()" ><img src="/images/icon/share1.png"><p>공유하기</p></div>&nbsp;
       </div>
       </div>
     
@@ -453,6 +471,8 @@ margin-top: 20px;
       <div>리뷰</div>
       <div>위치</div>
     </div>
+    
+    <div class="contents">
     <div class="content">
       <div class="content_title"><img  src="/images/icon/speaker.png" ><p>팝업스토어 소개</p></div>
       <p class="content_detail">메시 X  스탠리 1913 컬렉션 출시 기념 팝업 open!
@@ -487,7 +507,7 @@ margin-top: 20px;
     <div class="link">
     <a class="btn1" href="#">홈페이지 바로가기</a><a class="btn1" href="#">SNS 바로가기</a>
     </div>
-  
+  </div>
 	
   </main>
   <aside>
@@ -515,6 +535,19 @@ const swiper = new Swiper('.swiper-container', {
       delay: 5000, // 3초마다 자동 슬라이드
     },
   });
+  
+function clipboard() {
+    var currentUrl = window.location.href;
+
+    // 클립보드에 URL 복사
+    navigator.clipboard.writeText(currentUrl).then(function() {
+        alert("URL이 클립보드에 복사되었습니다.");
+    }).catch(function(error) {
+        alert("복사 실패: " + error);
+    });
+} 
+
+
 </script>
 </body>
 </html>
