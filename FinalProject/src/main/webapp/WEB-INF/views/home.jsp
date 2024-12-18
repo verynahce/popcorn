@@ -13,13 +13,11 @@
 </head>
 <body>
   <main>
-	<h2>Home1</h2>
+
+	<a href="/Users/Wallet">wallet</a>
+	<a href="/Users/RouteRecommend">Route Recommend</a>
+
+
   </main>	
 </body>
 </html>
-
-
-
-
-
-
