@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
-
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=a9gjf918ri&submodules=geocoder"></script>
 
 <style>
 /* reset css */
@@ -958,57 +958,60 @@ function moveReviewBack(e) {
 	  $('#contents').html(reviewPage);
 }
 
+function initMap() {
+    // 지도 객체 생성
+    map = new naver.maps.Map('map', {
+        center: new naver.maps.LatLng(37.5665, 126.9780), // 기본 서울 위치
+        zoom: 10
+    });
+    console.log("지도 객체 생성 완료!");
+    console.log(naver.maps.services);
+   // console.log(typeof naver.maps.services.Geocoder);
+    
+    // Geocoder 객체 생성
+       if (!naver.maps.services || !naver.maps.services.Geocoder) {
+       throw new Error("Geocoder 모듈이 로드되지 않았습니다.");
+    }
+    
+    
+    // 주소를 좌표로 변환하는 Geocoder 객체 생성
+    var geocoder = new naver.maps.services.Geocoder();
 
-/*
+    // 주소를 입력받아서 해당 주소의 위치로 지도를 이동
+    var address = "서울특별시 중구 세종대로 110"; // 원하는 주소로 변경
+    geocoder.addressSearch(address, function(status, response) {
+        if (status === naver.maps.services.Status.OK) {
+            var result = response.result[0];
+            var coords = new naver.maps.LatLng(result.y, result.x);
+
+            // 지도에 마커 추가
+            new naver.maps.Marker({
+                position: coords,
+                map: map
+            });
+
+            // 지도 중심 이동
+            map.setCenter(coords);
+            map.setZoom(14);
+        } else {
+            alert("주소를 찾을 수 없습니다.");
+        }
+    });
+}
+
 function moveMap() {
 	$('#contents').html('');
 	 $('#contents').html(mapPage);
 	  var map;         
       
-      function initMap() {
-          // 지도 객체 생성
-          map = new naver.maps.Map('map', {
-              center: new naver.maps.LatLng(37.5665, 126.9780), // 기본 서울 위치
-              zoom: 10
-          });
-          // Geocoder 객체 생성
-          if (!naver.maps.services || !naver.maps.services.Geocoder) {
-              throw new Error("Geocoder 모듈이 로드되지 않았습니다.");
-          }
-          // 주소를 좌표로 변환하는 Geocoder 객체 생성
-          var geocoder = new naver.maps.services.Geocoder();
 
-          // 주소를 입력받아서 해당 주소의 위치로 지도를 이동
-          var address = "서울특별시 중구 세종대로 110"; // 원하는 주소로 변경
-          geocoder.addressSearch(address, function(status, response) {
-              if (status === naver.maps.services.Status.OK) {
-                  var result = response.result[0];
-                  var coords = new naver.maps.LatLng(result.y, result.x);
-
-                  // 지도에 마커 추가
-                  new naver.maps.Marker({
-                      position: coords,
-                      map: map
-                  });
-
-                  // 지도 중심 이동
-                  map.setCenter(coords);
-                  map.setZoom(14);
-              } else {
-                  alert("주소를 찾을 수 없습니다.");
-              }
-          });
-      }
 
       // 페이지 로드 후 지도 초기화
       // maps.js가 로드된 후 initMap을 호출
-      window.onload = function() {
-          if (typeof naver !== 'undefined' && naver.maps) {
-              initMap();
-          } else {
-              console.error('Naver Maps API is not loaded.');
-          }
-      };
+      //window.onload =  
+    	  initMap();
+          
+  
 	 
 	 
 	 
@@ -1016,7 +1019,7 @@ function moveMap() {
 	 
 	 
 }
-*/
+
 </script>
 
     <script>
