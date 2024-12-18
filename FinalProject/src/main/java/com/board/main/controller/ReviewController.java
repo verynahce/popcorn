@@ -1,17 +1,19 @@
-package com.board.controller;
+package com.board.main.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HomeController {
+@RequestMapping("/Review")
+public class ReviewController {
 	
 	// http://localhost:9090
-	@RequestMapping("/")
-	public  String   home() {
-		return "popup/info";
+	@RequestMapping("/WriteForm")
+	public  String   write() {
+		return "popup/writeform";
 		//return "/WEB-INF/views/home.jsp";
 	}
+	
 
 	
 }
