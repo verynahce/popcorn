@@ -12,5 +12,9 @@ public class HomeController {
 		return "home";
 		//return "/WEB-INF/views/home.jsp";
 	}
+	@RequestMapping("/login")
+	public  String   login() {
+		return "login";
+	}
 	
 }
