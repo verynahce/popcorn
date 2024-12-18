@@ -361,7 +361,9 @@
   overflow: visible;
 }
 	</style>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <header>
         <div class="header">
             <a href="/"><img class="logo" src="/images/header/logo.png" alt="로고" /></a>
@@ -440,7 +442,7 @@
 </div>
 		</div>
     </header>
-    
+
     <script>
     $(document).ready(function() {
         var menuOpen = false;
