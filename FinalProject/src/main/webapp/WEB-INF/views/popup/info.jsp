@@ -12,27 +12,12 @@
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <style>
 /* reset css */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Pretendard", sans-serif;
-}
 
-li {
-  list-style: none;
-}
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+
 
 body{
-	padding-top : 94px;
-}
-/* popup css */
-body{
+	padding-top : 114px;
 	background: #121212;
 }
 
@@ -411,7 +396,7 @@ cursor: pointer;
 </style>
 </head>
 <body>
-<a href="/info2">예시보기</a>
+<%@include file="/WEB-INF/include/header.jsp" %>
 <div class="container">
   <img id="icon_back" src="/images/icon/back.png" alt="뒤로가기">
   <main>
@@ -520,7 +505,7 @@ cursor: pointer;
   </div>
   </aside>
 </div>
-
+<%@include file="/WEB-INF/include/footer.jsp" %>
 <script >
 const swiper = new Swiper('.swiper-container', {
     slidesPerView: 2, // 화면에 이미지 두 개 표시
