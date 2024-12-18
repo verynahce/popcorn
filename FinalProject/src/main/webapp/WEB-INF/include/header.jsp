@@ -366,7 +366,7 @@
 
     <header>
         <div class="header">
-            <a href="/"><img class="logo" src="/images/header/logo.png" alt="로고" /></a>
+            <a href="/Users/Main"><img class="logo" src="/images/header/logo.png" alt="로고" /></a>
             <div class="header-nav">
                 <a href="#">
                     <div class="frame-2066">
