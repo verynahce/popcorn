@@ -15,14 +15,12 @@
 <body>
 	<%@include file="/WEB-INF/include/header.jsp" %>
   <main>
-	<h2>Home</h2>
+
+	<a href="/Users/Wallet">wallet</a>
+	<a href="/Users/RouteRecommend">Route Recommend</a>
+
+
   </main>	
-  <%@include file="/WEB-INF/include/footer.jsp" %>
+ <%@include file="/WEB-INF/include/footer.jsp" %>
 </body>
 </html>
-
-
-
-
-
-
