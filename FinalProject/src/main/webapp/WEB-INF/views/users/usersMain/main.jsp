@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>진행 중</title>
+<link rel="icon" type="image/png" href="/img/favicon.png" />
+<link rel="stylesheet"  href="/css/common.css" />
+
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -15,7 +18,10 @@
   body {
     background-color: #121212 !important;
     color: white !important;
-    padding-bottom: 200px;          
+    padding-bottom: 200px;
+    padding-top:200px;
+              
+              
   }
 
   * { margin: 0; padding: 0; }
@@ -25,7 +31,42 @@
   a  {text-align : center;
       color: #00ff84;
   }
-  
+  /*--------------------------------------------------------------*/
+  /*검색창*/
+  .search-container {
+    position: relative;
+    width: 100%;
+    max-width: 1250px; /* 최대 너비 */
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+.search-input {
+    width: 100%;
+    padding: 15px 50px 15px 20px; /* 패딩 */
+    border: 2px solid #00ff84; /* 테두리 색상 */
+    border-radius: 15px; /* 둥근 모서리 */
+    background-color: #121212; /* 배경색 */
+    color: white; /* 글자색 */
+}
+
+.search-input::placeholder {
+    color: #00ff84; /* 플레이스홀더 색상 */
+}
+
+.search-button {
+    position: absolute;
+    right: 15px; /* 오른쪽 여백 조정 */
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent; /* 투명 배경 */
+    border: none; /* 테두리 없음 */
+    cursor: pointer; /* 포인터 커서 */
+}
+
+.search-button img {
+    width: 35px; /* 아이콘 크기 */
+    height: 35px; /* 아이콘 크기 */
+}
   /*--------------------------------------------------------------*/
 /* 랭킹,오픈예정 캐러셀(이미지 슬라이드)*/
   .slide-wrapper {
@@ -80,11 +121,15 @@
 }
     
   .maintitle {
-    margin-left:500px;
     font-size: 48px; /* 폰트 크기 */
-    display: inline-block; /* 인라인 블록으로 설정 */
     font-family:'Pretendard';
-    
+    display: inline-block; /* 인라인 블록으로 설정 */
+}
+ .maintext{
+    max-width: 300px;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
 }
 /*------------------------------------------------------------------*/
   /*진행중 팝업*/
@@ -137,7 +182,8 @@
     border: 2px solid #00ff84;
     margin-left:21%; 
     padding-left:20px;
-    padding-right:20px;   
+    padding-right:20px;  
+    position: relative; 
     }
     
   .regionfilter{
@@ -152,6 +198,7 @@
     border: 2px solid #00ff84;
     display: inline-block;
     padding : 13px;
+    position: relative;
     }
     
     #calendarInput{
@@ -167,6 +214,11 @@
     padding-top : 11px;
     padding-bottom : 11px;
     }
+    
+    
+    
+    
+ 
   /*--------------------------------------------------------------*/
   /*부트스트랩 캐러셀(이미지 슬라이드)*/
    
@@ -197,142 +249,223 @@
     margin: 20px auto; /* 중앙 정렬 */
     width: 55%; /* 너비 설정 */
   }
+  
+  .ongoingfilter {
+    position: relative; /* 요소를 고정 */
+    top: 70px; /* 원하는 위치에 맞게 조정 */
+    left: calc(50% - 825px); /* 왼쪽으로 100px 이동 (1000px의 절반 만큼) */
+    transform: translateX(0); /* 중앙 정렬 보정 제거 */
+    width: 1000px;
+    height: 100px;
+}
+  
+  
 </style>
 </head>
-<body>
 <%@include file="/WEB-INF/include/header.jsp" %>
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="/images/main/main-banner4.png" class="d-block w-100" alt="/images/main/main-banner4.png">
-    </div>
-    <div class="carousel-item">
-      <img src="/images/main/main-banner3.png" class="d-block w-100" alt="/images/main/main-banner3.png">
-    </div>
-    <div class="carousel-item">
-      <img src="/images/main/main-banner5.png" class="d-block w-100" alt="/images/main/main-banner5.png">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-<div class="carousel1">
-    <h2 class="maintitle">랭킹</h2>
-    <a href="/Users/Rankdetail"class="view-all" >전체보기 ☞</a>
-    <div class="slide-wrapper">
-        <ul class="slides">
-            <li><img src="/images/main/popup1.png"></li>
-            <li><img src="/images/main/popup2.png"></li>
-            <li><img src="/images/main/popup1.png"></li>
-            <li><img src="/images/main/popup2.png"></li>
-            <li><img src="/images/main/popup1.png"></li>
-            <li><img src="/images/main/popup2.png"></li>
-            <li><img src="/images/main/popup1.png"></li>
-        </ul>
-    </div>
-    <p class="controls">
-        <span class="prev">이전</span>
-        <span class="next">다음</span>
-    </p>
-</div>
-
-<div class="carousel1">
-<h2 class="maintitle">오픈예정</h2>
-<a href="/Users/Opendetail" class="view-all">전체보기 ☞</a>
-    <div class="slide-wrapper">
-        <ul class="slides">
-            <li><img src="/images/main/popup2.png"></li>
-            <li><img src="/images/main/popup1.png"></li>
-            <li><img src="/images/main/popup2.png"></li>
-            <li><img src="/images/main/popup1.png"></li>
-            <li><img src="/images/main/popup2.png"></li>
-            <li><img src="/images/main/popup1.png"></li>
-            <li><img src="/images/main/popup2.png"></li>
-        </ul>
-    </div>
-    <p class="controls">
-        <span class="prev">이전</span>
-        <span class="next">다음</span>
-    </p>
-</div>
-
+<body>
 <div>
-  <h2 class="maintitle">진행중</h2>
-  <a href="/Users/Ongoing"class="view-all">전체보기 ☞</a>
-  
-  <div>
-    <input type="date"class="mainfilter" id="datepickerButton" >
-    <select class="regionfilter">
-      <option>지역</option>
-      <option>서울</option>
-      <option>부산</option>
-      <option>대구</option>
-      <option>대전</option>
-      <option>울산</option>
-      <option>광주</option>
-      <option>인천</option>
-      <option>제주도</option>
-    </select>
-  </div>
-  
-  <div class="container">
-    <div class="card">
-      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
-      <div class="title">내 이름</div>
-      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+   <div class="search-container">
+        <input type="text" class="search-input">
+        <button class="search-button" type="submit">
+            <img class="imgsearch" src="/images/main/search.png" alt="검색">
+        </button>
     </div>
-    <div class="card">
-      <img src="/images/main/popup2.png" alt="/images/main/popup2.png">
-      <div class="title">내 이름</div>
-      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
-    </div>
-    <div class="card">
-      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
-      <div class="title">내 이름</div>
-      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
-    </div>
-    <!-- 추가 카드 -->
-    <div class="card">
-      <img src="/images/main/popup2.png" alt="/images/main/popup2.png">
-      <div class="title">내 이름</div>
-      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
-    </div>
-    <div class="card">
-      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
-      <div class="title">내 이름</div>
-      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
-    </div>
-    <div class="card">
-      <img src="/images/main/popup2.png" alt="/images/main/popup2.png">
-      <div class="title">내 이름</div>
-      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
-    </div><div class="card">
-      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
-      <div class="title">내 이름</div>
-      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
-    </div><div class="card">
-      <img src="/images/main/popup2.png" alt="/images/main/popup2.png">
-      <div class="title">내 이름</div>
-      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
-    </div><div class="card">
-      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
-      <div class="title">내 이름</div>
-      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
-    </div>
-  </div>
-  <%@include file="/WEB-INF/include/footer.jsp" %>
+	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+	  <div class="carousel-indicators">
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+	  </div>
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <img src="/images/main/main-banner4.png" class="d-block w-100" alt="/images/main/main-banner4.png">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="/images/main/main-banner3.png" class="d-block w-100" alt="/images/main/main-banner3.png">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="/images/main/main-banner5.png" class="d-block w-100" alt="/images/main/main-banner5.png">
+	    </div>
+	  </div>
+	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Previous</span>
+	  </button>
+	  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Next</span>
+	  </button>
+	</div>
+
+	<div class="carousel1">
+	   <div class ="maintext">
+	    <h2 class="maintitle">랭킹</h2>
+	    <a href="/Users/Rankdetail"class="view-all" >전체보기 ☞</a>
+	    </div>
+	    <div class="slide-wrapper">
+	        <ul class="slides">
+	            <li><img src="/images/main/popup1.png"></li>
+	            <li><img src="/images/main/popup2.png"></li>
+	            <li><img src="/images/main/popup1.png"></li>
+	            <li><img src="/images/main/popup2.png"></li>
+	            <li><img src="/images/main/popup1.png"></li>
+	            <li><img src="/images/main/popup2.png"></li>
+	            <li><img src="/images/main/popup1.png"></li>
+	        </ul>
+	    </div>
+	    <p class="controls">
+	        <span class="prev">이전</span>
+	        <span class="next">다음</span>
+	    </p>
+	</div>
+
+	<div class="carousel1">
+	<div class ="maintext">
+	<h2 class="maintitle">오픈예정</h2>
+	<a href="/Users/Opendetail" class="view-all">전체보기 ☞</a>
+	</div>
+	    <div class="slide-wrapper">
+	        <ul class="slides">
+	            <li><img src="/images/main/popup2.png"></li>
+	            <li><img src="/images/main/popup1.png"></li>
+	            <li><img src="/images/main/popup2.png"></li>
+	            <li><img src="/images/main/popup1.png"></li>
+	            <li><img src="/images/main/popup2.png"></li>
+	            <li><img src="/images/main/popup1.png"></li>
+	            <li><img src="/images/main/popup2.png"></li>
+	        </ul>
+	    </div>
+	    <p class="controls">
+	        <span class="prev">이전</span>
+	        <span class="next">다음</span>
+	    </p>
+	</div>
+
+	<div class="carousel1">
+	  <div class ="maintext">
+	  <h2 class="maintitle">진행중</h2>
+	  <a href="/Users/Ongoingdetail"class="view-all">전체보기 ☞</a>
+	  </div>
+	  
+	  <div class="ongoingfilter">
+	    <input type="date"class="mainfilter" id="datepickerButton" >
+	    <select class="regionfilter">
+	      <option>지역</option>
+	      <option>서울</option>
+	      <option>부산</option>
+	      <option>대구</option>
+	      <option>대전</option>
+	      <option>울산</option>
+	      <option>광주</option>
+	      <option>인천</option>
+	      <option>제주도</option>
+	    </select>
+	    <select class="regionfilter">
+	      <option>연령대</option>
+	      <option>10대</option>
+	      <option>20대</option>
+	      <option>30대</option>
+	      <option>40대</option>
+	      <option>50대</option>
+	    </select>
+	  </div>
+	  
+	  <div class="container">
+	    <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	    <div class="card">
+	      <img src="/images/main/popup2.png" alt="/images/main/popup2.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	    <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	    <!-- 추가 카드 -->
+	    <div class="card">
+	      <img src="/images/main/popup2.png" alt="/images/main/popup2.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	    <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	    <div class="card">
+	      <img src="/images/main/popup2.png" alt="/images/main/popup2.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	    <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	    <div class="card">
+	      <img src="/images/main/popup2.png" alt="/images/main/popup2.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	      <div class="card">
+	      <img src="/images/main/popup1.png" alt="/images/main/popup1.png">
+	      <div class="title">내 이름</div>
+	      <div class="info">서울 서초구 강남대로 429 영남빌 1-26<br>기간: 2024.11.16 - 2024.12.25</div>
+	    </div>
+	  </div>
+	  <%@include file="/WEB-INF/include/footer.jsp" %>
+	</div>
 </div>
 </body>
 <script>
@@ -371,6 +504,15 @@
             }
         });
     });
+</script>
+<script>
+//const imgsearch = document.querySelector('.imgsearch');
+$(function (){
+	$('.imgsearch').on('click',function(){
+		alert('ok');
+		window.location.href = '/Users/Mainsearch'; 
+	})
+})
 </script>
 
 </html>

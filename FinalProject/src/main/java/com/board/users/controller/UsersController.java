@@ -24,20 +24,36 @@ public class UsersController {
 	
 	
 	@RequestMapping("/Main")
-	public String main() {
-		return "users/usersMain/main";
+	public ModelAndView main() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("users/usersMain/main");
+		return mv;
 	}
 	
 	@RequestMapping("/Rankdetail")
-	public String rankdetail() {
-		return "users/usersMain/rankdetail";
+	public ModelAndView rankdetail() {
+	  ModelAndView mv = new ModelAndView();
+	  mv.setViewName("users/usersMain/rankdetail");
+	  return mv;
 	}
 	@RequestMapping("/Opendetail")
-	public String opentail() {
-		return "users/usersMain/opendetail";
+	public ModelAndView opendetail() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("users/usersMain/opendetail");
+		return mv;
 	}
-	@RequestMapping("/Ongoing")
-	public String ongoing() {
-		return "users/usersMain/ongoing";
+	@RequestMapping("/Ongoingdetail")
+	public ModelAndView ongoingdetail() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("users/usersMain/ongoingdatail");
+		return mv;
 	}
+	
+	@RequestMapping("/Mainsearch")
+	public ModelAndView mainsearch() {
+		ModelAndView mv = new ModelAndView();		
+		mv.setViewName("users/usersMain/mainsearch");
+		return mv;
+	}
+	
 }
