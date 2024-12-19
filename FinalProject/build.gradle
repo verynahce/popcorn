@@ -42,6 +42,9 @@ dependencies {
 
     // junit
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	  //json
+	  implementation 'org.json:json:20230227'
     
     // 추가된 의존성
     implementation 'org.springframework.boot:spring-boot-starter-security' // 추가
