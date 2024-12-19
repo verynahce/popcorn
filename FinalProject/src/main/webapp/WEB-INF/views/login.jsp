@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <title>POP CORN - 로그인</title>
     <link rel="stylesheet" href="/css/common.css" />
-<script src="/commonjs/common.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style type="text/css">
-        body {
+        main {
             background-color: #121212;
             color: #ffffff;
             font-family: "Pretendard", sans-serif;
@@ -16,8 +15,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            height: 75vh;
         }
 
         .user-login {
@@ -32,10 +30,12 @@
 
         ._32 {
         	width: 300px;
-        	height:150px;
+        	height: auto;
+        	margin: 0 auto; /* 가운데 정렬 */
+            margin-bottom: 20px;
         }
 
-        input[name="user_id"] {
+        input[name="id"] {
             width: 100%;
             padding: 17px;
             border: 1px solid #121212;
@@ -43,7 +43,7 @@
             background-color: #ffffff;
         }
         
-        input[name="user_password"] {
+        input[name="password"] {
             width: 100%;
             padding: 17px;
             border: 1px solid #121212;
@@ -83,10 +83,15 @@
     <%@include file="/WEB-INF/include/header.jsp" %>
     <main>
         <div class="user-login">
-            <a href="/"><img class="_32" src="/images/_32.png" /></a>
-            <input type="text" name="user_id" placeholder="아이디" />
-            <input type="password" name="user_password" placeholder="비밀번호" />
-            <button onclick="window.location.href='#';">로그인</button>
+            <a href="/"><img class="_32" src="/images/mainlogo.png" /></a>
+    <form method="POST" action="/Users/Login">
+            <input type="text" name="id" placeholder="아이디" />
+            <input type="password" name="password" placeholder="비밀번호" />
+            <button type="submit">로그인</button>
+            <c:if test="${param.error != null}">
+			    <p style="color: red;">아이디 또는 비밀번호가 잘못되었습니다.</p>
+			</c:if>
+    </form>
             <div class="sub-login">
             <a href="#" class="link">아이디 찾기</a> |
             <a href="#" class="link">비밀번호 찾기</a> |

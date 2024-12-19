@@ -17,9 +17,13 @@ a {
   cursor: pointer;
 }
 
+button{
+  cursor: pointer;
+}
+
 body{
-   padding-top : 114px;
-   padding-bottom: 94px;
+background-color: #121212;
+   padding-top : 150px;
 }
 
 
