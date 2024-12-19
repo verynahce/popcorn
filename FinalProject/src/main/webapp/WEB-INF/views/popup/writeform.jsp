@@ -73,17 +73,30 @@ font-weight: 600;
 }
 /*submit -btn*/
 .btn5{
-width: 400px;
+width: 200px;
+height: 60px;
 font-size: 22px; 
 font-weight: 600;
 color: white;
+background: #121212;
+border: 1px solid #fff;
+&:hover{
+background: #767676;
 }
+
+}
+.btn_layout2{
+display:flex;
+justify-content: center;
+margin-bottom: 30px;
+}
+
 </style>
 </head>
 <body>
 <%@include file="/WEB-INF/include/header.jsp" %>
 <div class="container">
-  <img id="icon_back" src="/images/icon/back.png" alt="뒤로가기">
+  <img id="icon_back" src="/images/icon/back.png" alt="뒤로가기" onclick="goBack()" >
   <main>
 	
 	 <div class='title'>
@@ -100,6 +113,7 @@ color: white;
       </div>
       </div>
       
+      <form action="">
       <div class="date_line">
       <div class="sub_box"><p>현재리뷰수</p><p>20</p></div>
       <div class="sub_box"><p>평균 평점</p><p>20</p></div>
@@ -141,10 +155,18 @@ color: white;
   
     </div>	  
 	<div class="sizebox"></div>
+	<div class="btn_layout2">
 	<input type="submit" class="btn5" value="작성완료">
-	
+	</div>
+	</form>
   </main>	
 </div>
+<script>
+function goBack() {
+    window.history.back();  // 이전 페이지로 돌아가기
+}
+</script>
+
 </body>
 </html>
 

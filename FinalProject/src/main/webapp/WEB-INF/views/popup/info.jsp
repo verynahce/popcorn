@@ -8,634 +8,75 @@
 <link rel="icon" type="image/png" href="/img/favicon.png" />
 <link rel="stylesheet"  href="/css/common.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="stylesheet"  href="/css/popupdetail.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=a9gjf918ri&submodules=geocoder"></script>
 
+
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style>
-/* reset css */
-body{
-	padding-top : 114px;
-	background: #121212;
+.modal-bg {
+    display: none;  /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);  /* 검은색 불투명 배경 */
+    z-index: 1000;
 }
 
-.container {
-
-display:flex;
-justify-content: center;
-position: relative;
-
-
-
-
-}
-main {
-
-width: 1200px;
-position: absolute;
-left: 50%; 
-margin-bottom: 80px;
-transform: translateX(-50%); 
-}   
-
-
-#icon_back {
-width: 43px;
-height: 43px;
-position: absolute;
-left: calc(50% - 600px - 73px);
-cursor: pointer;
-}
- 
-aside {
-width: 271px; 
-height: 286px;
-border: 10px solid #00FF84;
-position: fixed;
-right: calc(50% - 600px - 300px);
-
+/* 모달 창 */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1001;
+    min-width: 300px;
 }
 
-.title{
-border: 2px solid #BDFF91;
-margin-top: 30px;
-padding: 40px 50px 30px 50px;
-}  
-
-.guide_line{
-border: 2px solid #ffffff;
-margin-top: 15px;
-height: 80px; 
-display: flex; 
-align-items: center; 
-justify-content: center;
-p{
-color: white;
-
-font-size: 20px;
-font-weight: 400; 
-margin: 0px;
-
-}
-} 
-
-.date_line{
-margin-top:15px;
-height: 90px; 
-display: flex;
-justify-content: space-between;
-gap:10px;
-}
-.menu_main{
-margin-top:30px;
-font-size: 24px;
-font-weight: 800; 
-height: 82px; 
-background: #767676;
-display: flex;
-justify-content: space-around;
-div{
-width: 33%;
-display:flex;
-align-items: center; /* 수직 중앙 정렬 */
-justify-content: center;
-height: 100%;
-
-&:hover{
-color:white;
-}
+.modal h2 {
+    margin-bottom: 15px;
 }
 
+.modal label {
+    display: block;
+    margin-bottom: 10px;
 }
-.content {
-margin-top:10px;
-background: #000000;
-color: white;
-padding: 40px 60px;
+.modal select {
+width: 40px;
 }
-.link{
-
-margin-top:30px;
-font-size: 16px;
-font-weight: 900; 
-height: 90px; 
-display: flex;
-justify-content: center;
-gap:20px;
-margin-bottom: 30px;
-
+#timeAndPeople {
+    margin-top: 10px;
 }
-.title_header{
-display:flex;
-justify-content: space-between;
-
-}
-.title_category {
-color: #757575; 
-font-size: 16px;
-font-weight: 600; 
-}
-.title_name{
-color: white; 
-font-size: 34px; 
-font-weight: 700;
-}
-.title_subname{
-color: white;
-font-size: 20px; 
-font-weight: 600;
-}
-.title_icon{
-display:flex;
-justify-content: flex-start;
-align-items:center;
-color: white;
-font-size: 16px; 
-font-weight: 600;
-gap:4px;
-img{
-width: 30px;
-height: 30px;
+#timeAndPeople select {
+    margin-right: 10px;
 }
 
+.modal button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
 }
 
-.title_adress{
-margin-top: 5px;
-display: flex;
-justify-content: flex-start;
-color: #757575;
-font-size: 16px; 
-font-weight: 600;
-}
-.tags{
-margin-top: 12px;
-display: flex;
-justify-content: flex-start;
-gap:8px;
-}
-.tag_option {
-border-radius: 5px;
-background: white;
-color: #121212;
-font-size: 16px; 
-font-weight: 800;
-padding: 5px 7px;
-}
-.title_click {
-display:flex;
-justify-content: flex-end;
-align-items:center;
-color: white;
-font-size: 16px; 
-font-weight: 600;
-gap:4px;
-div {
-padding: 10px;
-display:flex;gap:4px;
-align-items:center;
-border-radius: 5px;
-border: 1px solid #ffffff;
-
-    }
-img{
-width: 20px;
-height: 20px;
-}
-}
-.title_footer{
-display: flex;
-justify-content: space-between;
-}
-.deadline {
-border: 1px solid #ffffff;
-display: flex;
-width: 280px;
-justify-content:center;
-align-items:center;
-gap:20px;
-p:first-child {
-color: white;
-font-size: 24px; 
-font-weight: 600;	
-}
-p:nth-child(2) {
-font-size: 24px; 
-font-weight: 600;
-color: #00FF84;		
-}
-}
-.dateo {
-border: 1px solid #ffffff;
-display: flex;
-width: 660px;
-justify-content:center;
-align-items:center;
-gap:20px;
-p:first-child {
-color: white;
-font-size: 24px; 
-font-weight: 600;	
-}
-p:nth-child(2) {
-font-size: 24px; 
-font-weight: 400;
-color: white;		
-}
-}
-.btn_booking {
-width: 215px;
-font-size: 28px; 
-font-weight: 600;
-border: 1px solid #ffffff;
-
-&:hover{
-background:#00FF84;
-cursor: pointer;
-}	
-}
-.content_title{
-display:flex;
-align-items:center;
-gap:5px;
-
-margin-bottom: 7px;
-img{
-width: 31px;
-height: 31px;
-}
-p {
-font-size: 24px; 
-font-weight: 600;
-color: #00FF84;
+#btnClose {
+    background-color: #f44336;  /* 빨간색 */
+    color: white;
 }
 
-}
-.content_detail{
-font-size: 20px; 
-font-weight: 300;
-color:white;
-}
-.content_sit{
-display: flex;
-justify-content: flex-start;
-align-items: center;
-gap: 60px;
-div{
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 10px;
-font-size: 20px; 
-font-weight: 500;
-}
+#btnConfirm {
+    background-color: #4CAF50;  /* 초록색 */
+    color: white;
 }
 
-.btn1{
-border: 2px solid #ffffff;
-display: flex;
-justify-content: center;
-align-items: center;
-width: 400px;
-font-size: 22px; 
-font-weight: 600;
-color: white;
-&:hover{
-background: #757575;
-}
-}
-.atag_div{
-margin-top:20px;
-width: 215px;
-height: 60px;
-background: #00FF84;
-display:flex;
-justify-content: center;
-align-items: center;
-&:hover{
-background: #75FFBC;
-}
-}
-.btn2{
-color: #121212;
-font-size: 20px; 
-font-weight: 800;
-
-}
-
-
-
-.swiper-button-next {
-color: white;
-}
-.swiper-slide img {
-  object-fit: cover;
-}
-
-.swiper-container {
-     width: 1200px;
-     height: 600px;
-     margin: auto;
-     overflow: hidden;
-      position: relative;
-   }
-   
-/* 네비게이션 버튼의 기본 스타일 */
-.swiper-button-prev,
-.swiper-button-next {
-  position: absolute; /* swiper-wrapper 기준으로 위치 */
-  top: 50%; /* 세로 중앙 */
-  transform: translateY(-50%); /* 정확한 세로 중앙 정렬 */
-  background-color: rgba(0, 0, 0, 0.5); /* 배경색 */
-  color: #fff; /* 화살표 색상 */
-  border: none;
-  padding: 30px 20px 30px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  z-index: 10; /* 슬라이드 이미지 위에 오도록 설정 */
-}
-.swiper-button-prev {
-  left: 0; 
-}
-.swiper-button-next {
-  right: 0; 
-}
-
-.sub_detail{
-text-align:right;
-margin-top:5px;
-color: #767676;
-font-size: 13px;
-}
-
-.side-layout {
-padding: 17px;
-
-.side_box {
-display:flex;
-justify-content:flex-start;
-align-items:center;
-color: #ffffff;
-border: 1px solid #ffffff;
-font-size: 14px;
-width: 215px;
-height: 44px;
-margin-top: 10px;
-padding: 5px 15px;
-font-weight: 500;
-}
-p {
-color: #ffffff;
-font-size: 20px;
-font-weight: 700;
-
-}
-hr{
-color: #ffffff;
-margin-top: 20px;
-}
-}
-
-.share:hover{
-background: #767676;
-cursor: pointer;
-}
-.bookmark:hover{
-background: #767676;
-cursor: pointer;
-}
-.review_header{
-display:flex;
-justify-content:flex-start;
-margin-top: 25px;
-}
-.review_title{
-padding:10px;
-display:flex;
-justify-content:flex-start;
-align-items:baseline;
-gap: 10px;
-p:nth-child(2){
-font-size: 18px; 
-font-weight: 500;
-color: #767676;
-margin-bottom: 7px;}
-p:first-child {
-font-size: 24px; 
-font-weight: 600;
-color: #00FF84;	
-}
-
-}
-.review_box{
-width: 370px;
-height: 471px;
-background: white;
-overflow: hidden;
-margin-bottom: 30px;
-cursor:pointer;
-&:hover{
-background: #F1F1F1;
-}
-}
-.review_preview{
-position: relative;
-width: 326px;
-height: 286px;
-margin: 20px 22px;
-}
-.review_img{
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
-
-.review_like {
-position: absolute;
-top: 10px;
-left: 10px;
-background: rgba(30, 30, 30, 0.8);
-border-radius: 21px;
-border: 1px soild #121212; 
-display: flex;
-align-items: center;
-gap: 5px;
-padding: 5px 10px;
-color:white;
-img{
-width: 30px;
-height: 30px;
-}
-}
-
-
-
-.review_info{
-margin: 0px 22px;
-display: flex;
-justify-content: space-between;
-p{
-font-size: 24px; 
-font-weight: 600;
-}
-div{
-display:flex;
-align-items:center;
-font-size: 16px; 
-font-weight: 500;
-img{
-width: 18px;
-height:18px;
-}
-}
-}
-.review_score{
-margin: 5px 22px;
-font-size: 20px; 
-font-weight: 500;
-}
-.review_time{
-margin: 0px 22px;
-display:flex;
-justify-content:flex-end;
-div{
-width: 110px;
-height: 42px;
-border-radius: 21px;
-background: #121212;
-color: white;
-font-size: 20px; 
-font-weight: 600;
-text-align: center;
-align-content: center;
-}
-}
-.review_cdate{
-margin: 5px 22px;
-display:flex;
-justify-content:flex-end;
-color: #767676;
-}
-.review_body{
-display:flex;
-justify-content: space-between;
-flex-wrap: wrap;
-padding: 5px 0 0px 0;
-}
-.review_sub{
-padding:0px 10px 10px 10px;
-display:flex;
-color:#ffffff;
-align-items:center;
-
-justify-content: space-between;
-p {
-font-size: 16px; 
-}
-}
-.review_filter {
-display:flex;
-gap:7px;
-}
-
-
-#review_slike,#review_sscore,#review_snew {
-border: 1px solid #00FF84;
-padding: 8px 10px;
-border-radius: 10px;
-font-weight:400;
-&:hover{
-background:#00FF84;
-color: #121212;
-font-weight:400;
-}
-
-}
-#map {
-      width: 100%;
-      height: 600px;
-  }
-/* 캐러셀 전체 컨테이너 스타일 */
-   .swiper-container2 {
-       width: 1000px;
-       height: 500px;
-       background-color: black;
-       overflow: hidden; /* 오버플로우 숨김 */
-       position: relative;
-       margin: 20px auto;
-   }
-
-.ss {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    background-color: black;
-    object-fit: contain !important;
-}
-.review_score2{
-  width: 550px;
-  height: 100px;
- display: flex;
- justify-content: space-around;
- align-items:center;
- gap:150px;
- font-size: 24px;
- font-weight: 600;
- color: #00FF84;
- background: #000000;
-}
-.review_nld {
-  width: 640px;
-  height: 100px;
- display: flex;
- justify-content:center;
-  align-items:center;
-   font-weight: 600;
-   background: #000000;
- img {
-   width: 30px;
-  height: 30px;
- }
-p {
-color: white;
-font-size: 24px;
-
-}
-}
-.review_line {
- display: flex;
- justify-content: space-between;
- align-items: center;
-
-
-}  
-.sizebox{
-height: 20px;
- background: #121212;
-} 
-
-
-.btn_line{
-display:flex;
-width:620px;
-margin: 0px auto 30px;
-gap:10px;
-
-}
-.btn3{
-border: 2px solid #ffffff;
-display: flex;
-justify-content: center;
-align-items: center;
-width: 200px;
-height:60px;
-font-size: 22px; 
-font-weight: 600;
-color: white;
-&:hover{
-background: #757575;
-}
-}
 </style>
 </head>
 <body>
@@ -692,7 +133,7 @@ background: #757575;
     <div class="date_line">
     <div class="deadline"><p>종료까지</p><p>D-22</p></div>
     <div class="dateo"><p>팝업기간</p><p>2024 .12 .20  ~ 2024.12.31</p></div>
-    <button class="btn_booking">예약하기</button>    
+    <button id="reserveBtn" class="btn_booking">예약하기</button>    
     </div>
     
     <div class="menu_main">
@@ -759,6 +200,32 @@ background: #757575;
   </aside>
 
 </div>
+
+<!-- 모달 배경 -->
+<div id="modalBg" class="modal-bg">
+    <!-- 모달 창 -->
+    <div id="reserveModal" class="modal">
+        <h2>예약 시간 선택</h2>
+<div>
+    <label for="calendar-container">날짜 선택</label>
+    <div id="calendar-container">
+    <!-- Flatpickr는 여기에 날짜 달력을 직접 렌더링합니다. -->
+</div>
+</div>
+
+<div id="timeAndPeople">
+    <!-- 시간대와 인원수 선택이 동적으로 추가됩니다 -->
+</div>
+
+
+
+        <button id="btnConfirm">확인</button>
+        <button id="btnClose">닫기</button>
+    </div>
+</div>
+
+
+
 <script src="/js/popup_info.js" defer></script>
 <script>
 
@@ -1010,15 +477,90 @@ function moveMap() {
       // maps.js가 로드된 후 initMap을 호출
       //window.onload =  
     	  initMap();
-          
-  
-	 
-	 
-	 
-	 
-	 
-	 
+          	 	 
 }
+
+//예약하기 버튼 클릭 시 모달 열기
+document.getElementById('reserveBtn').addEventListener('click', function() {
+    document.getElementById('modalBg').style.display = 'block';
+});
+
+// 모달 닫기 버튼
+document.getElementById('btnClose').addEventListener('click', function() {
+    document.getElementById('modalBg').style.display = 'none';
+});
+
+
+// 예약 확인 버튼 클릭 시
+document.getElementById('btnConfirm').addEventListener('click', function() {
+	  const selectedDate = $("#calendar").val();
+    const selectedTime = document.getElementById('time').value;
+    const selectedPeople = document.getElementById('people').value;
+
+    if (!selectedDate || !selectedTime || !selectedPeople) {
+        alert('모든 항목을 선택해주세요.');
+    } else {
+        alert(`예약이 완료되었습니다! 날짜: ${selectedDate}, 시간: ${selectedTime}, 인원수: ${selectedPeople}`);
+        document.getElementById('modalBg').style.display = 'none';  // 모달 닫기
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    // 날짜 선택을 위한 Flatpickr 초기화
+    flatpickr("#calendar-container", {
+        dateFormat: "Y-m-d",     // 날짜 형식
+        minDate: "2023-12-12",   // 최소 날짜
+        maxDate: "2023-12-24",   // 최대 날짜
+        inline: true,
+        onChange: function(selectedDates, dateStr, instance) {
+            // 날짜가 변경될 때마다 시간대와 인원수를 동적으로 업데이트
+            updateTimeAndPeople(dateStr);
+        }
+    });
+
+    // 날짜에 따른 시간대와 인원수 선택을 업데이트하는 함수
+    function updateTimeAndPeople(date) {
+        // 시간대 선택 (예: 11시부터 8시까지 한 시간 간격)
+        const timeOptions = getTimeOptions(date); // 날짜에 따른 시간대 옵션
+        const peopleOptions = getPeopleOptions(); // 인원수 선택
+
+        let timeSelectHtml = `<label for="timeSelect">시간 선택</label><select id="timeSelect">`;
+        timeOptions.forEach(time => {
+            timeSelectHtml += `<option value="${time}">${time}</option>`;
+        });
+        timeSelectHtml += `</select>`;
+
+        let peopleSelectHtml = `<label for="peopleSelect">인원수</label><select id="peopleSelect">`;
+        peopleOptions.forEach(num => {
+            peopleSelectHtml += `<option value="${num}">${num}</option>`;
+        });
+        peopleSelectHtml += `</select>`;
+
+        // 시간대와 인원수 선택을 업데이트
+        document.getElementById("timeAndPeople").innerHTML = timeSelectHtml + peopleSelectHtml;
+    }
+
+    // 날짜에 따른 시간대 옵션 반환
+    function getTimeOptions(date) {
+        // 날짜에 따른 예약 가능한 시간대를 다르게 설정할 수 있음
+        if (date === "2023-12-12") {
+            return ["11:00", "12:00", "13:00", "14:00"];
+        } else if (date === "2023-12-13") {
+            return ["14:00", "15:00", "16:00", "17:00"];
+        } else {
+            return ["11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"];
+        }
+    }
+
+    // 인원수 선택 옵션 (1 ~ 10명)
+    function getPeopleOptions() {
+        let options = [];
+        for (let i = 1; i <= 10; i++) {
+            options.push(i);
+        }
+        return options;
+    }
+});
 
 </script>
 
