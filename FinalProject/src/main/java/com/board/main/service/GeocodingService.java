@@ -16,7 +16,7 @@ import org.json.JSONArray;
 public class GeocodingService {
 
     private static final String GEOCODING_API_URL = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode";
-    private static final String CLIENT_ID = "a9gjf918ri"; // 네이버 클라이언트 ID
+    private static final String CLIENT_ID = "";// 네이버 클라이언트 ID
     private static final String CLIENT_SECRET = "";
 
     public Map<String, Double> getCoordinates(String address) throws Exception {
