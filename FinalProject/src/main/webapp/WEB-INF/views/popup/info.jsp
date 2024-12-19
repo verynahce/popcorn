@@ -13,19 +13,12 @@
 <style>
 /* reset css */
 
-
-
-
-body{
-	padding-top : 114px;
-	background: #121212;
-}
-
 .container {
 
 display:flex;
 justify-content: center;
 position: relative;
+margin-bottom: 110%;
 
 
 

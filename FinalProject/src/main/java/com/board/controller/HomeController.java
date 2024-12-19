@@ -12,15 +12,16 @@ public class HomeController {
 		return "popup/info";
 		//return "/WEB-INF/views/home.jsp";
 	}
-	@RequestMapping("/login")
-	public  String   login() {
-		return "login";
-	}
 	
 	@RequestMapping("/info2")
 	public  String   info2() {
 		return "popup/info2";
 		//return "/WEB-INF/views/home.jsp";
+	}
+	
+	@RequestMapping("/Business")
+	public String businesshome() {
+		return "business/operation";
 	}
 	
 
