@@ -16,11 +16,11 @@ a {
   cursor: pointer;
 }
 
-body{
-   padding-top : 20px
+button{
+  cursor: pointer;
 }
- 
-  
-  
-  
-  
+
+body{
+background-color: #121212;
+   padding-top : 150px;
+}

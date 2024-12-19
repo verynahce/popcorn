@@ -9,9 +9,16 @@ public class HomeController {
 	// http://localhost:9090
 	@RequestMapping("/")
 	public  String   home() {
-		return "management/list";
+		return "/popup/info";
 		//return "/WEB-INF/views/home.jsp";
 	}
+	
+	
+	@RequestMapping("/Business")
+	public String businesshome() {
+		return "business/operation";
+	}
+	
 
 	
 }
