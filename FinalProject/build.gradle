@@ -43,6 +43,8 @@ dependencies {
     // junit
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
+	//json
+	implementation 'org.json:json:20230227'
 }
 
 tasks.named('bootBuildImage') {

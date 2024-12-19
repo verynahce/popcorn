@@ -79,6 +79,7 @@ height: 82px;
 background: #767676;
 display: flex;
 justify-content: space-around;
+
 div{
 width: 33%;
 display:flex;
@@ -88,6 +89,7 @@ height: 100%;
 
 &:hover{
 color:white;
+cursor: pointer;
 }
 }
 
@@ -620,4 +622,97 @@ color: white;
 &:hover{
 background: #757575;
 }
+}
+
+.modal-bg {
+    display: none;  /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);  /* 검은색 불투명 배경 */
+    z-index: 1000;
+}
+
+/* 모달 창 */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1001;
+    min-width: 300px;
+    border: 2px solid #00FF84;
+}
+
+.modal h2 {
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #00FF84;
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #fff;
+}
+.modal select {
+width: 140px;
+height: 30px;
+margin-bottom: 5px;
+font-size: 18px;
+}
+#timeAndPeople {
+    margin-top: 10px;
+   
+}
+#timeAndPeople select {
+    margin-right: 10px;
+   
+}
+
+.modal button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+#btnClose {
+    background-color:#000; 
+    border:1px solid #000;
+
+    width:30px;
+    height:30px;
+    
+    
+}
+
+#btnConfirm {
+    border: 1px solid #fff;
+    color: #121212;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #00FF84;
+    margin: 0 auto;
+}
+
+.modal_layout_select {
+display: flex;
+justify-content: space-between;
+padding: 5px 20px 2px 20px;
+align-items: cetner;
+}
+.modal_layout_header{
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.modal_layout_confirm{
+display: flex;
+justify-content: center;
 }

@@ -11,71 +11,12 @@
 <link rel="stylesheet"  href="/css/popupdetail.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
-<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=a9gjf918ri&submodules=geocoder"></script>
-
-
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=a9gjf918ri"></script>
 <!-- Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style>
-.modal-bg {
-    display: none;  /* 기본적으로 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);  /* 검은색 불투명 배경 */
-    z-index: 1000;
-}
-
-/* 모달 창 */
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    z-index: 1001;
-    min-width: 300px;
-}
-
-.modal h2 {
-    margin-bottom: 15px;
-}
-
-.modal label {
-    display: block;
-    margin-bottom: 10px;
-}
-.modal select {
-width: 40px;
-}
-#timeAndPeople {
-    margin-top: 10px;
-}
-#timeAndPeople select {
-    margin-right: 10px;
-}
-
-.modal button {
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
-}
-
-#btnClose {
-    background-color: #f44336;  /* 빨간색 */
-    color: white;
-}
-
-#btnConfirm {
-    background-color: #4CAF50;  /* 초록색 */
-    color: white;
-}
 
 </style>
 </head>
@@ -205,22 +146,23 @@ width: 40px;
 <div id="modalBg" class="modal-bg">
     <!-- 모달 창 -->
     <div id="reserveModal" class="modal">
-        <h2>예약 시간 선택</h2>
-<div>
-    <label for="calendar-container">날짜 선택</label>
-    <div id="calendar-container">
-    <!-- Flatpickr는 여기에 날짜 달력을 직접 렌더링합니다. -->
-</div>
-</div>
+    <div class="modal_layout_header">
+       <h2>예약 시간 선택</h2>
+       <img id="btnClose" src="/images/icon/delete.png" alt="삭제">
+    </div>
+       <div>
+         <label for="calendar-container">날짜 선택</label>
+         <div id="calendar-container">
 
-<div id="timeAndPeople">
+        </div>
+      </div>
+
+      <div id="timeAndPeople">
     <!-- 시간대와 인원수 선택이 동적으로 추가됩니다 -->
-</div>
-
-
-
-        <button id="btnConfirm">확인</button>
-        <button id="btnClose">닫기</button>
+      </div>
+      <div class="modal_layout_confirm" >
+      <button id="btnConfirm">예약하기</button>
+       </div>
     </div>
 </div>
 
@@ -432,38 +374,21 @@ function initMap() {
         zoom: 10
     });
     console.log("지도 객체 생성 완료!");
-    console.log(naver.maps.services);
-   // console.log(typeof naver.maps.services.Geocoder);
-    
-    // Geocoder 객체 생성
-       if (!naver.maps.services || !naver.maps.services.Geocoder) {
-       throw new Error("Geocoder 모듈이 로드되지 않았습니다.");
-    }
-    
-    
-    // 주소를 좌표로 변환하는 Geocoder 객체 생성
-    var geocoder = new naver.maps.services.Geocoder();
+    // 위도, 경도를 직접 설정하여 지도 변경
+    var coordinates = { latitude: 35.1796, longitude: 129.0756 }; // 부산광역시 연제구 중앙대로 1001의 위도, 경도
 
-    // 주소를 입력받아서 해당 주소의 위치로 지도를 이동
-    var address = "서울특별시 중구 세종대로 110"; // 원하는 주소로 변경
-    geocoder.addressSearch(address, function(status, response) {
-        if (status === naver.maps.services.Status.OK) {
-            var result = response.result[0];
-            var coords = new naver.maps.LatLng(result.y, result.x);
+    var position = new naver.maps.LatLng(coordinates.latitude, coordinates.longitude);
 
-            // 지도에 마커 추가
-            new naver.maps.Marker({
-                position: coords,
-                map: map
-            });
-
-            // 지도 중심 이동
-            map.setCenter(coords);
-            map.setZoom(14);
-        } else {
-            alert("주소를 찾을 수 없습니다.");
-        }
+    // 지도에 마커 추가
+    new naver.maps.Marker({
+        position: position,
+        map: map
     });
+
+    // 지도 중심을 해당 좌표로 이동
+    map.setCenter(position);
+    map.setZoom(14);    
+
 }
 
 function moveMap() {
@@ -516,7 +441,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // 날짜가 변경될 때마다 시간대와 인원수를 동적으로 업데이트
             updateTimeAndPeople(dateStr);
         }
-    });
+    });     
 
     // 날짜에 따른 시간대와 인원수 선택을 업데이트하는 함수
     function updateTimeAndPeople(date) {
@@ -524,17 +449,17 @@ document.addEventListener("DOMContentLoaded", function() {
         const timeOptions = getTimeOptions(date); // 날짜에 따른 시간대 옵션
         const peopleOptions = getPeopleOptions(); // 인원수 선택
 
-        let timeSelectHtml = `<label for="timeSelect">시간 선택</label><select id="timeSelect">`;
+        let timeSelectHtml = `<div class="modal_layout_select"><label for="timeSelect">시간 선택</label><select id="timeSelect">`;
         timeOptions.forEach(time => {
-            timeSelectHtml += `<option value="${time}">${time}</option>`;
+            timeSelectHtml += `<option value="${time}">\${time}</option>`;
         });
-        timeSelectHtml += `</select>`;
+        timeSelectHtml += `</select></div>`;
 
-        let peopleSelectHtml = `<label for="peopleSelect">인원수</label><select id="peopleSelect">`;
+        let peopleSelectHtml = `<div class="modal_layout_select"><label for="peopleSelect">인원수</label><select id="peopleSelect">`;
         peopleOptions.forEach(num => {
-            peopleSelectHtml += `<option value="${num}">${num}</option>`;
+            peopleSelectHtml += `<option value="${num}">\${num}</option>`;
         });
-        peopleSelectHtml += `</select>`;
+        peopleSelectHtml += `</select></div>`;
 
         // 시간대와 인원수 선택을 업데이트
         document.getElementById("timeAndPeople").innerHTML = timeSelectHtml + peopleSelectHtml;

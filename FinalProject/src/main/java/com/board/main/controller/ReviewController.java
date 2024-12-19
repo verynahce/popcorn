@@ -13,7 +13,12 @@ public class ReviewController {
 		return "popup/writeform";
 		//return "/WEB-INF/views/home.jsp";
 	}
-	
+	// http://localhost:9090
+	@RequestMapping("/Update")
+	public  String   update() {
+		return "management/request";
+		//return "/WEB-INF/views/home.jsp";
+	}
 
 	
 }
