@@ -43,6 +43,14 @@ dependencies {
     // junit
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
+	
+	 // Spring RestTemplate 추가
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // JSON 처리 라이브러리 추가
+    implementation 'org.json:json:20210307'
+	
+	
 }
 
 tasks.named('bootBuildImage') {

@@ -13,6 +13,13 @@ public class HomeController {
 		//return "/WEB-INF/views/home.jsp";
 	}
 	
+	@RequestMapping("/Ho")
+	public  String   test() {
+		return "/home";
+		//return "/WEB-INF/views/home.jsp";
+	}
+	
+	
 	@RequestMapping("/info2")
 	public  String   info2() {
 		return "popup/info2";
