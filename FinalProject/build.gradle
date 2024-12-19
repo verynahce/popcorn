@@ -43,6 +43,10 @@ dependencies {
     // junit
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
+
+	
+	
+
 	  //json
 	  implementation 'org.json:json:20230227'
     
@@ -55,6 +59,7 @@ dependencies {
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1' // 추가
     
     implementation 'org.springframework.security:spring-security-taglibs'
+
 }
 
 

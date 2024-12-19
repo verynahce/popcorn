@@ -13,10 +13,19 @@ public class HomeController {
 		//return "/WEB-INF/views/home.jsp";
 	}
 	
+
+	@RequestMapping("/Ho")
+	public  String   test() {
+		return "/home";
+		//return "/WEB-INF/views/home.jsp";
+	}
+	
+
 	
 	@RequestMapping("/Business")
 	public String businesshome() {
 		return "business/operation";
+
 	}
 	
 
