@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 	<style>
 	.header, .header * {
 		box-sizing: border-box;
 	}
 	
 	.header {
-	    background: #121212;
+	    background: white;
 	    border-bottom: 1px solid #ebecf1;
 	    height: 94px;
 	    position: fixed; /* 고정 위치 */
@@ -42,7 +41,7 @@
 	}
 	
 	.div1, .div2 {
-		color: #ffffff;
+		color: #121212;
 		text-align: center;
 		font-family: "Pretendard-Black", sans-serif;
 		font-size: 18px;
@@ -57,6 +56,7 @@
 		width: 24px;
 		height: 24px;
 	}
+	
 	
 	.popcornfactory {
 		width: 24px;
@@ -74,7 +74,7 @@
 	}
 	
 	.div3 {
-		color: #ffffff;
+		color: #121212;
 		text-align: right;
 		font-size: 18px;
 		line-height: 140%;
@@ -87,11 +87,11 @@
 	}
 	
 	.logo {
-		width: 250px;
-		height: auto;
+    width: 280.8px; /* 원본 크기의 90% */
+    height: 61.2px; /* 원본 크기의 90% */
 		position: absolute;
-		left: 10px;
-		top: 10px;
+		left: 17px;
+		top: 15px;
 	}
 	
 	.div1:hover, .div2:hover {
@@ -158,6 +158,7 @@
     opacity: 0; /* 초기 투명도 */
     transition: opacity 0.4s ease; /* 서서히 나타나도록 설정 */
     top: 10px;
+
 }
 .menu-popup.show {
     display: block; /* 보이게 설정 */
@@ -198,6 +199,7 @@
   bottom: 0px;
   top: 0px;
   overflow: hidden;
+   background-color: white;
 }
 .material {
   position: absolute;
@@ -208,8 +210,7 @@
   overflow: hidden;
 }
 .thick {
-  background: linear-gradient(to left, #202020, #202020),
-    linear-gradient(to left, rgba(32, 32, 32, 0.97), rgba(32, 32, 32, 0.97));
+  background: white;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -278,13 +279,13 @@
 }
 .personal-collection0 {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   position: relative;
   overflow: visible;
 }
 .menu-list {
-  color: #ffffff;
+  color: black;
   text-align: center;
   font-family: "Pretendard-Black", sans-serif;
   font-size: 24px;
@@ -308,8 +309,8 @@
 }
 ._6-10 {
   flex-shrink: 0;
-  width: 38px;
-  height: 60px;
+  width: 35px;
+  height: 35px;
   position: relative;
   object-fit: cover;
 }
@@ -324,8 +325,8 @@
 }
 .map-20 {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   position: relative;
   overflow: visible;
 }
@@ -340,8 +341,8 @@
 }
 .headset-mic0 {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   position: relative;
   overflow: visible;
 }
@@ -356,49 +357,43 @@
 }
 .shopping-mall0 {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   position: relative;
   overflow: visible;
 }
 	</style>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <header>
         <div class="header">
-            <a href="/Users/Main"><img class="logo" src="/images/header/logo.png" alt="로고" /></a>
+            <a href="/"><img class="logo" src="/images/icon/logo_company.png" alt="로고" /></a>
             <div class="header-nav">
                 <a href="#">
                     <div class="frame-2066">
-                        <div class="div1">프로필</div>
-                        <img class="personal-collection" src="/images/header/personal-collection.svg" alt="프로필 아이콘" />
+                        <div class="div1">운영</div>
                     </div>
                 </a>
                 <a href="#">
                     <div class="frame-2067">
-                        <div class="div2">팝콘 팩토리</div>
-                        <img class="popcornfactory" src="/images/header/popcornfactory.png" alt="팝콘 팩토리 아이콘" />
+                        <div class="div2">관리</div>
                     </div>
                 </a>
                 <a href="#">
                     <div class="frame-2068">
-                        <div class="div2">지도</div>
-                        <img class="map-2" src="/images/header/map-2.svg" alt="지도 아이콘" />
+                        <div class="div2">등록</div>
+                    </div>
+                </a>
+                 <a href="#">
+                    <div class="frame-2068">
+                        <div class="div2">고객센터</div>
                     </div>
                 </a>
             </div>
-			<div class="header-util">
-			    <sec:authorize access="isAuthenticated()">
-			        <a href="/Logout"><div class="div3">로그아웃</div></a>
-			    </sec:authorize>
-			    <sec:authorize access="isAnonymous()">
-			        <a href="/Users/LoginForm"><div class="div3">로그인</div></a>
-			        <img class="line-1" src="/images/header/line-1.svg" alt="구분선" />
-			        <a href="/Users/SignupForm"><div class="div3">회원가입</div></a>
-			    </sec:authorize>
-			</div>
-
+            <div class="header-util">
+                <a href="/login"><div class="div3">로그인</div></a>
+                <img class="line-1" src="/images/header/line-1.svg" alt="구분선" />
+                <a href="/register"><div class="div3">회원가입</div></a>
+            </div>
 			<div id="hamburger-menu">
 				<span></span> 
 				<span></span> 
@@ -417,39 +412,39 @@
         </div>
         <a href="#">
         <div class="menu-2066">
-            <img class="personal-collection0" src="/images/header/personal-collection0.svg" />
-            <div class="menu-list">프로필</div>
+            <img class="personal-collection0" src="/images/icon/operation.png" />
+            <div class="menu-list">운영</div>
         </div>
         </a>
         <a href="#">
         <div class="menu-2067">
-            <img class="_6-10" src="/images/header/popcornfactory.png" />
-            <div class="menu-list">팝콘 팩토리</div>
+            <img class="_6-10" src="/images/icon/manage.png" />
+            <div class="menu-list">관리</div>
         </div>
         </a>
         <a href="#">
         <div class="menu-2068">
-            <img class="map-20" src="/images/header/map-2.svg" />
-            <div class="menu-list">지도</div>
+            <img class="map-20" src="/images/icon/insert.png" />
+            <div class="menu-list">등록</div>
         </div>
         </a>
         <a href="#">
         <div class="menu-2069">
-            <img class="headset-mic0" src="/images/header/headset-mic0.svg" />
+            <img class="headset-mic0" src="/images/icon/phone.png" />
             <div class="menu-list">고객센터</div>
         </div>
         </a>
         <a href="#">
         <div class="menu-2070">
-            <img class="shopping-mall0" src="/images/header/shopping-mall0.svg" />
-            <a href="/Business"><div class="menu-list">비즈니스</div></a>
+            <img class="shopping-mall0" src="/images/icon/homepage.png" />
+            <div class="menu-list">팝업스토어 홈페이지</div>
         </div>
         </a>
     </div>
 </div>
 		</div>
     </header>
-
+    
     <script>
     $(document).ready(function() {
         var menuOpen = false;

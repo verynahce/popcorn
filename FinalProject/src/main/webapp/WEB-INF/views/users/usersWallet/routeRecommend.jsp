@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?govClientId=&submodules=geocoder"></script>
     <title>팝콘</title>
     
      <style>
@@ -24,7 +26,7 @@
         }
 
         body {
-            padding-top: 94px;
+            padding-top: 144px;
             background-color: #121212;
             color: #fff;
         }
@@ -118,9 +120,10 @@
     </style>
 </head>
 <body>
-
+<%@include file="/WEB-INF/include/header.jsp" %>
 <div class="container">
     <h2 class="content-text">원하는 팝업 매장 선택하기</h2>
+
     <div class="button-group">
         <select class="filter-select" id="region-select">
             <option value="" disabled selected>지역</option>
@@ -132,65 +135,118 @@
 
         <select class="filter-select" id="popup-select">
             <option value="" disabled selected>팝업</option>
-            <option value="메시 X 스페인 팝업">메시 X 스페인 팝업</option>
-            <option value="티르티르 성수 팝업">티르티르 성수 팝업</option>
-            <option value="노브랜드 팝업">노브랜드 팝업</option>
+            <option value="서울 성동구 성수이로 18길 6-1" name="메시 x 스탠리 성수 팝업">메시 x 스탠리 성수 팝업</option>
+            <option value="서울 성동구 연무장길 95" name="티르티르 성수 팝업">티르티르 성수 팝업</option>
+            <option value="서울 성동구 성수이로 7길 18" name="모푸샌드 팝업스토어">모푸샌드 팝업스토어</option>
         </select>
+        
     </div>
 
+
+	<!-- 숨긴상태로 위도경도 가져오는 form -->
+	<form action="/GetCoordinates" method="post" id="address-form">
+    <div id="hidden-fields"></div> <!-- 숨겨진 필드 컨테이너 추가 -->
+    <button type="submit" style="display:none;">검색</button>
+	</form>
+
+
 	
-    <div class="store-list" id="store-list"></div>                 <!-- 여기에 선택한거 들어옵니다! -->  
+    <div class="store-list" class="store-name" id="store-list"></div>                 <!-- 여기에 선택한거 들어옵니다! 7개까지 가능하게 해야함 -->  
 	<div class="default-store-name" id="default-store">+</div>
 	
     <div class="flex-container">
-        <div class="store-list" id="store-list"></div>
-        <button class="search-btn">검색하기</button>
+        <div class="store-list" ></div>
+        <button type="button" class="search-btn" id="search-btn">검색하기</button>
     </div>
+
 </div>
 
+<%@include file="/WEB-INF/include/footer.jsp" %>
+
 <script>
-    // 팝업 선택 이벤트
+    let selectedAddresses = []; // 선택된 주소 목록
+
     document.getElementById("popup-select").addEventListener("change", function () {
-        const selectedValue = this.value; 
+    	const selectedOption = this.options[this.selectedIndex]; // 선택된 option 요소
+    	const selectedName = selectedOption.getAttribute('name'); // 'name' 속성 값 가져오기
+        const selectedValue = this.value;
         const storeList = document.getElementById("store-list");
-        const defaultStore = document.getElementById("default-store");
-        
-        // 팝업 리스트중 하나를 고르면 ?
-        if (selectedValue) {
-            // 1.네모칸 생성
+
+        // 선택된 값이 있고, 네모칸이 7개 미만인 경우만 실행
+        if (selectedValue && storeList.children.length < 7 && !selectedAddresses.includes(selectedValue)) {
+            selectedAddresses.push(selectedValue);
+
+            // 네모칸 생성
             const storeNameBox = document.createElement("div");
             storeNameBox.classList.add("store-name");
-            storeNameBox.textContent = selectedValue; // 선택한 팝업 이름을 네모칸에 표시
+            storeNameBox.textContent = selectedName; // 선택한 팝업 이름 표시
 
-            // 2. X 버튼 삭제 기능 
+            // X 버튼 생성 및 삭제 기능
             const removeBtn = document.createElement("span");
             removeBtn.textContent = "x";
             removeBtn.classList.add("remove-btn");
-            removeBtn.onclick = function() {
-                // 잠겼던 팝업 리스트 재선택가능 
-                const optionToEnable = Array.from(document.getElementById("popup-select").options).find(option => option.value === selectedValue);
-                optionToEnable.disabled = false; 
-                
-                // 네모칸 제거
+
+            removeBtn.onclick = function () {
+                // 네모칸 삭제
                 storeList.removeChild(storeNameBox);
-                    
-                // x 버튼 누르면 "팝업"으로 변경 -> 만약  리스트가 1,2,3 있을때 123 다 선택한뒤 3을 취소하면 아무것도 선택못함
-                const popupSelect = document.getElementById("popup-select");
-                popupSelect.value = "";
-                popupSelect.options[0].selected = true; // 첫 번째 옵션(팝업)을 선택
+
+                // 배열에서 선택된 주소 삭제
+                selectedAddresses = selectedAddresses.filter(address => address !== selectedValue);
+
+                // 선택된 팝업을 다시 활성화
+                const optionToEnable = Array.from(document.getElementById("popup-select").options)
+                    .find(option => option.value === selectedValue);
+                if (optionToEnable) {
+                    optionToEnable.disabled = false;
+                }
             };
 
-            // X 버튼을 네모칸에 추가
+            // X 버튼 추가
             storeNameBox.appendChild(removeBtn);
-            // 추가된 네모칸 리스트에 표시
             storeList.appendChild(storeNameBox);
-            
-            // 선택된 팝업리스트 는 비활성화
+
+            // 숨겨진 필드 추가
+            const hiddenFields = document.getElementById("hidden-fields");
+            const hiddenInput = document.createElement("input");
+            hiddenInput.type = "hidden";
+            hiddenInput.name = "address"; // 서버에서 List<String>으로 받을 수 있도록
+            hiddenInput.value = selectedValue;
+            hiddenFields.appendChild(hiddenInput);
+
+            // 선택된 팝업 비활성화
             const optionToDisable = Array.from(this.options).find(option => option.value === selectedValue);
-            optionToDisable.disabled = true; 
+            if (optionToDisable) {
+                optionToDisable.disabled = true;
+            }
+        } else if (storeList.children.length >= 7) {
+            alert("최대 7개까지 선택할 수 있습니다.");
         }
     });
-</script>
+
+    // 검색 버튼 클릭 시, 선택된 주소들을 숨겨진 필드에 추가 후 폼 제출
+    document.getElementById('search-btn').addEventListener('click', function () {
+        if (selectedAddresses.length > 0) {
+            const hiddenFields = document.getElementById('hidden-fields');
+            hiddenFields.innerHTML = ""; // 이전 값을 초기화
+
+            // 선택된 주소를 숨겨진 필드로 다시 추가
+            selectedAddresses.forEach(address => {
+                const hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.name = "address"; // 서버에서 List<String>으로 받을 수 있도록
+                hiddenInput.value = address;
+                hiddenFields.appendChild(hiddenInput);
+            });
+
+            // 폼 제출
+            document.getElementById('address-form').submit();
+        } else {
+            alert('주소를 선택해주세요.');
+        }
+    });
+
+    
+	</script>
 
 </body>
 </html>
