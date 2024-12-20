@@ -1,4 +1,4 @@
-package com.board.main.controller;
+package com.board.users.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +10,13 @@ public class ReviewController {
 	// http://localhost:9090
 	@RequestMapping("/WriteForm")
 	public  String   write() {
-		return "popup/writeform";
+		return "users/popup/writeform";
 		//return "/WEB-INF/views/home.jsp";
 	}
 	// http://localhost:9090
 	@RequestMapping("/Update")
 	public  String   update() {
-		return "management/request";
+		return "business/management/request";
 		//return "/WEB-INF/views/home.jsp";
 	}
 
