@@ -37,19 +37,39 @@ padding-left: 10px;
  padding-left: 20px;
  }
  textarea{
+ margin-top:23px;
+ margin-bottom:26px;
 width: 90%;
-height: 90px; 
+height: 400px; 
+font-size: 16px;
  
  }
- }  
+ } 
+.cover_layout{
+display: flex;
+justify-content: center;
+} 
+.btn2{
+width: 157px;
+height: 80px;
+background: white;
+font-size: 24px;
+font-weight: 600px;
+border: 1px solid #121212;
+margin-bottom: 40px;
+} 
 </style>
 </head>
 <body>
+<%@include file="/WEB-INF/include/header_company.jsp" %>
 <div class="container">
   <main>
     <div class="title">
    <p>수정으로 변경 불가한 사항을 관리자에게 문의하세요</p>
    <p>팝업스토어 관리자요청</p>
+   </div>
+   
+   <div class="content_body">
    </div>
    
    <h2 class="content_title">요청 팝업스토어</h2>
@@ -78,13 +98,15 @@ height: 90px;
  <hr>
  <div class="content_cover">
  <p>요청 상세내용</p>
+ <div class="cover_layout">
  <textarea rows="" cols="">상세 내용을 입력하시오</textarea>
- 
+ </div>
  </div>
 
    </div>
- 
-  
+ <div class="cover_layout">
+ <input class="btn2" type="submit" value="등록">
+  </div>
   </main>
  </div>	
 </body>
