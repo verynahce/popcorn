@@ -14,11 +14,27 @@ public class ReviewController {
 		//return "/WEB-INF/views/home.jsp";
 	}
 	// http://localhost:9090
-	@RequestMapping("/Update")
-	public  String   update() {
+	@RequestMapping("/Request")
+	public  String   request() {
 		return "business/management/request";
 		//return "/WEB-INF/views/home.jsp";
 	}
 
+	@RequestMapping("/Update")
+	public  String   update() {
+		return "business/management/update";
+		//return "/WEB-INF/views/home.jsp";
+	}
+	
+	@RequestMapping("/Rlist")
+	public  String   rlist() {
+		return "business/management/requestlist";
+		//return "/WEB-INF/views/home.jsp";
+	}
+	@RequestMapping("/Rview")
+	public  String   rview() {
+		return "business/management/info";
+		//return "/WEB-INF/views/home.jsp";
+	}
 	
 }
