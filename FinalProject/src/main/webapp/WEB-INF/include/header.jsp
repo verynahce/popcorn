@@ -367,7 +367,7 @@
 
     <header>
         <div class="header">
-            <a href="/"><img class="logo" src="/images/header/logo.png" alt="로고" /></a>
+            <a href="/Users/Main"><img class="logo" src="/images/header/logo.png" alt="로고" /></a>
             <div class="header-nav">
                 <a href="#">
                     <div class="frame-2066">
@@ -389,9 +389,11 @@
                 </a>
             </div>
 			<div class="header-util">
-			    <sec:authorize access="isAuthenticated()">
-			        <a href="/Logout"><div class="div3">로그아웃</div></a>
-			    </sec:authorize>
+<form id="logoutForm" method="POST" action="/Users/Logout">
+    <sec:authorize access="isAuthenticated()">
+        <button id="logout-button" type="button">로그아웃</button>
+    </sec:authorize>
+</form>
 			    <sec:authorize access="isAnonymous()">
 			        <a href="/Users/LoginForm"><div class="div3">로그인</div></a>
 			        <img class="line-1" src="/images/header/line-1.svg" alt="구분선" />
@@ -413,7 +415,7 @@
                     <div class="thick"></div>
                 </div>
             </div>
-            <img class="arrow0" src="/images/header/arrow0.svg" />
+            <img class="arrow0" src="/images/header/arrow0.png" />
         </div>
         <a href="#">
         <div class="menu-2066">
@@ -483,5 +485,24 @@
             }
         });
     });
+    
+    </script>
+    
+
+
+<script type="text/javascript">
+    /* 로그아웃 */
+document.getElementById('logout-button').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    fetch('/Users/Logout', { method: 'POST' })
+        .then(() => {
+            // 로컬 스토리지에서 토큰 제거
+            localStorage.removeItem('token');
+            // 메인 페이지로 리다이렉트
+            window.location.href = '/';
+        })
+        .catch(error => console.error('Error:', error));
+});
 
     </script>
