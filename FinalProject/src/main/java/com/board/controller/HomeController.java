@@ -9,7 +9,8 @@ public class HomeController {
 	// http://localhost:9090
 	@RequestMapping("/")
 	public  String   home() {
-		return "/users/profile/suggestion";
+
+		return "home";
 		//return "/WEB-INF/views/home.jsp";
 	}
 	
@@ -17,6 +18,7 @@ public class HomeController {
 	@RequestMapping("/Ho")
 	public  String   test() {
 		return "business/registration/write";
+
 		//return "/WEB-INF/views/home.jsp";
 	}
 	

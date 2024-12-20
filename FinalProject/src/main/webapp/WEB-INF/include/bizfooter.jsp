@@ -9,7 +9,7 @@
   height: 93px;
   left: 0;
   width: 100%;
-  position: fixed; /* 고정 위치로 변경 */
+  position: relative; /* 고정 위치로 변경 */
   bottom: 0; /* 화면 하단에 고정 */
   padding: 10px 34px; /* 패딩 추가 */
 }
