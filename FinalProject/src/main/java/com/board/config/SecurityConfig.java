@@ -56,6 +56,7 @@ public class SecurityConfig {
                         .permitAll()
                 );
 
+
         return http.build();
     }
 
@@ -76,7 +77,7 @@ public class SecurityConfig {
     @Bean
     public HttpFirewall allowDoubleSlashFirewall() {
         StrictHttpFirewall firewall = new StrictHttpFirewall();
-        firewall.setAllowUrlEncodedDoubleSlash(true);
+        firewall.setAllowUrlEncodedDoubleSlash(true); // URL 인코딩된 "//" 허용
         return firewall;
     }
 
@@ -85,3 +86,4 @@ public class SecurityConfig {
         return (web) -> web.httpFirewall(allowDoubleSlashFirewall());
     }
 }
+
