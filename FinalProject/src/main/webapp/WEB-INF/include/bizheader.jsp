@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 	<style>
 	.header, .header * {
 		box-sizing: border-box;
@@ -87,11 +86,11 @@
 	}
 	
 	.logo {
-		width: 250px;
-		height: auto;
+		width: 224px;
+		height: 68px;
 		position: absolute;
-		left: 10px;
-		top: 10px;
+		left: 17px;
+		top: 15px;
 	}
 	
 	.div1:hover, .div2:hover {
@@ -367,7 +366,7 @@
 
     <header>
         <div class="header">
-            <a href="/Users/Main"><img class="logo" src="/images/header/logo.png" alt="로고" /></a>
+            <a href="/"><img class="logo" src="/images/header/logo.png" alt="로고" /></a>
             <div class="header-nav">
                 <a href="#">
                     <div class="frame-2066">
@@ -388,17 +387,11 @@
                     </div>
                 </a>
             </div>
-			<div class="header-util">
-			    <sec:authorize access="isAuthenticated()">
-			        <a href="/Logout"><div class="div3">로그아웃</div></a>
-			    </sec:authorize>
-			    <sec:authorize access="isAnonymous()">
-			        <a href="/Users/LoginForm"><div class="div3">로그인</div></a>
-			        <img class="line-1" src="/images/header/line-1.svg" alt="구분선" />
-			        <a href="/Users/SignupForm"><div class="div3">회원가입</div></a>
-			    </sec:authorize>
-			</div>
-
+            <div class="header-util">
+                <a href="/Companys/LoginForm"><div class="div3">로그인</div></a>
+                <img class="line-1" src="/images/header/line-1.svg" alt="구분선" />
+                <a href="/Companys/SignupForm"><div class="div3">회원가입</div></a>
+            </div>
 			<div id="hamburger-menu">
 				<span></span> 
 				<span></span> 
@@ -442,7 +435,7 @@
         <a href="#">
         <div class="menu-2070">
             <img class="shopping-mall0" src="/images/header/shopping-mall0.svg" />
-            <a href="/Business"><div class="menu-list">비즈니스</div></a>
+            <div class="menu-list">비즈니스</div>
         </div>
         </a>
     </div>
