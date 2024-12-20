@@ -36,5 +36,10 @@ public class ReviewController {
 		return "business/management/info";
 		//return "/WEB-INF/views/home.jsp";
 	}
+	@RequestMapping("/Storeuser")
+	public  String   storeuser() {
+		return "admin/user";
+		//return "/WEB-INF/views/home.jsp";
+	}
 	
 }
