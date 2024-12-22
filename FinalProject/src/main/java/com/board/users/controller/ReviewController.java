@@ -42,4 +42,15 @@ public class ReviewController {
 		//return "/WEB-INF/views/home.jsp";
 	}
 	
+	@RequestMapping("/Storeview")
+	public  String   Storeview() {
+		return "admin/store/view";
+		//return "/WEB-INF/views/home.jsp";
+	}
+	@RequestMapping("/Storeupdate")
+	public  String   Storeupdate() {
+		return "admin/store/update";
+		//return "/WEB-INF/views/home.jsp";
+	}	
+	
 }

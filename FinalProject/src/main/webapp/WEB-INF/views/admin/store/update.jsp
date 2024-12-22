@@ -13,68 +13,120 @@
     daysOfWeek.put("SUN", "일");
 
     request.setAttribute("daysOfWeek", daysOfWeek);
-%>    
+%>     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="icon" type="image/png" href="/img/favicon.png" />
-<link rel="stylesheet"  href="/css/common.css" />
-<link rel="stylesheet"  href="/css/company_m.css" />
+<link rel="stylesheet" href="/css/common.css" />
+<link rel="stylesheet" href="/css/admin_s.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <style>
-
+#view_header  {
+p:first-child {
+font-size: 26px;
+font-weight: 700;
+}
+}
+.sub_short{
+width: 250px;        
+height: 43px;         
+border: 1px solid #9A9A9A;
+box-sizing: border-box; 
+font-size: 16px; 
+padding-left: 10px;
+margin: 0 10px;
+}
+.sub_input_date{
+width: 150px;        
+height: 43px;         
+border: 1px solid #9A9A9A;
+box-sizing: border-box; 
+font-size: 16px; 
+padding-left: 10px;
+margin: 0 10px;
+}
 </style>
 </head>
 <body>
-<%@include file="/WEB-INF/include/header_company.jsp" %>
 <div class="container">
- <form action="/upload" enctype="multipart/form-data">
-  <img id="icon_back" src="/images/icon/back2.png" alt="뒤로가기" onclick="goBack()">
   <main>
-    <div class="title">
-   <p>입점 전 필요한 팝업정보를 수정하세요</p>
-   <p>팝업스토어 수정</p>
-   </div>  
-   <p id="title_guide">*수정 불가 항목은 관리자요청 부탁드립니다.</p>
 
-  
-  <div class="content_body">
+
+     <div id="view_header">
+     <p>키스톤 마케팅</p>
+     <p>부산광역시 부산진구</p>
+     </div>
+     <div id="line_white"></div>
+     
+    <div class="content_body">
     <div class="sub_title">기본정보</div>
     <div class="sub_content">
       <table class="sub_table">
         <tr>
            <td>팝업스토어명칭</td>
-           <td>메시X스텐리1942 콜라보 팝업스토어</td>
+           <td><input class="sub_link"type="text" placeholder="팝업스토어 이름을 입력하시오"></td>
         </tr>
         <tr>
            <td>카테고리</td>
-           <td>잡화 | 스포츠</td>
+           <td>
+             <select class="sub_select">
+             <option>카테고리1</option>
+             <option>잡화</option>
+             <option>스포츠</option>
+           </select>
+             <select class="sub_select">
+             <option>카테고리2</option>
+             <option>잡화</option>
+             <option>스포츠</option>
+           </select>
+           
+           </td>
         </tr>        
         <tr>
            <td>브랜드</td>
-           <td>스텐리 | 메시</td>
+           <td>
+           메인<input class="sub_short"type="text" placeholder="브랜드명을 입력하시오"> 
+           콜라보브랜드<input class="sub_short"type="text" placeholder="콜라보  브랜드명을 입력하시오">
+           </td>
         </tr>        
         <tr>
            <td>주 타겟 연령대</td>
-           <td>2030세대</td>
+           <td>
+             <select class="sub_select">
+             <option>연령대</option>
+             <option>어린이</option>
+             <option>10대</option>
+             <option>10~20대</option>
+             <option>20~30대</option>
+             <option>30대~40대</option>
+             <option>40대 ~</option>
+             <option>전연령층</option>
+           </select>
+           </td>
         </tr>        
       </table>
   </div>
  </div>
 
-  <div class="content_body">
+<div class="content_body">
     <div class="sub_title">상세정보</div>
     <div class="sub_content">
       <table class="sub_table">
         <tr>
            <td>팝업스토어 주소</td>
-           <td>서울특별시 성동구 성수동 132-2</td>
+           <td><input class="sub_link"type="text" placeholder="상세정보"></td>
         </tr>
         <tr>
            <td>운영기간</td>
-           <td>2024-12-12 ~ 2024-12-25</td>
+           <td>
+           <input class="sub_input_date"type="date" placeholder="시작날짜"> ~
+           <input class="sub_input_date"type="date" placeholder="마감날짜">
+           
+           </td>
         </tr>        
         <tr>
            <td>영업시간</td>
@@ -185,20 +237,14 @@
     </div>
  </div> 
  
- 
  <div class="cover_layout">
- <input class="btn2" type="submit" value="등록">
+ <input class="btn2" type="submit" value="수정완료">
   </div>
-  
 
-  </main>
-   </form>
- </div>	
- <script>
-function goBack() {
-    window.history.back();  // 이전 페이지로 돌아가기
-}
-
+ 
+  </main>	
+</div>
+<script>
 function validateTimes(startInput, endInput) {
     const startTime = startInput.value;
     const endTime = endInput.value;
@@ -326,9 +372,3 @@ $(formEl).on('keydown', function(event) {
 </script>
 </body>
 </html>
-
-
-
-
-
-
