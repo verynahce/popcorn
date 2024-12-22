@@ -7,97 +7,11 @@
 <title>Insert title here</title>
 <link rel="icon" type="image/png" href="/img/favicon.png" />
 <link rel="stylesheet" href="/css/common.css" />
+<link rel="stylesheet" href="/css/admin_s.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <style>
 
-body{
-background: #F1F1F1;
-}
- .container {
-
-display:flex;
-justify-content: center;
-position: relative;
-
-} 
-main{
-width: 1400px;
-padding: 46px;
-background: #E8EEE7;
-
-}
-.content_box{
-width: 100%;
-background: #ffffff;
-padding: 46px 0 ;
-border-radius: 30px;
-}
-.box_layout{
-display: flex;
-}
-.box_circle{
-width: 120px;
-height: 120px;
-border-radius: 50px;
-background: #D3FFE7;
-display: flex;
-justify-content: center;
-align-items: center;
-}
-.box_info{
-margin: 0 0 0 25px;
-p:first-child {
-font-size: 14px;
-font-weight: 400;
-color: 	#ACACAC;
-} 
-p:nth-child(2) {
-font-size: 32px;
-font-weight: 800;	
-margin: 15px 0;
-}
-}
-.box_updown{
-display: flex;
-justify-content: flex-start;
-font-size: 16px;
-font-weight: 500;
-}
-.green{
-color: #00AC4F;
-}
-.red{
-color: #D0004B;
-}
-#box_table{
-width: 100%;
-td{
-border-right: 1px solid #F0F0F0;
-width: 33%;
-padding-left: 46px;
-}
-
-}
-
-.content_box2{
-width: 100%;
-background: #ffffff;
-padding: 46px;
-border-radius: 30px;
-}
-#box_title{
-font-size: 22px;
-font-weight: 700;
-}
-hr{
-margin: 95px 0;
-border: none; 
-height: 2px; 
-background-color: white; 
-}
-.box_filter{
-display: flex;
-}
 </style>
 </head>
 <body>
@@ -143,7 +57,6 @@ display: flex;
          <div class="box_info">
           <p>현재 운영중인 스토어</p>
           <p>192</p>
-
           
          </div>
        </div>
@@ -152,13 +65,12 @@ display: flex;
      </tr>
      </table>
   </div>
+  
    <hr>
    <div class="content_box2">
-    <p id ="box_title">모든 스토어 입점 요청 내역</p>
-    
+    <p id ="box_title">모든 스토어 입점 요청 내역</p>    
    <div class="box_filter">
-   <p id="box_full">Active Members</p>
-   <input id="box_search"type="text">
+   <input id="box_search"type="text" placeholder="Search">
    <select id="box_sort">
    <option>최신순</option>
    <option>미승인</option>
@@ -166,7 +78,50 @@ display: flex;
    <option>담당자 요청</option>
    </select>
    </div>
-   <table></table>
+   
+   <table id="box_table2">
+     <tr>
+       <th>기업명</th>
+       <th>팝업스토어 명</th>
+       <th>요청일</th>
+       <th>이메일</th>
+       <th>지역</th>
+       <th>상태</th>
+     </tr>
+     <tr>
+       <td>스텐리</td>
+       <td><a href="/Review/Storeview">스텐리X메시 콜라보 1943 팝업스토어</a></td>
+       <td>2024.12.12</td>
+       <td>4342@email.come</td>
+       <td>서울</td>
+       <td>
+         <div class="status_green">승인완료</div>
+       </td>
+     </tr>
+     <tr>
+       <td>스텐리</td>
+       <td>스텐리X메시 콜라보 1943 팝업스토어 특집 한정판도 공개예정</td>
+       <td>2024.12.12</td>
+       <td>4dddddefdsggggg42@email.com</td>
+       <td>서울</td>
+       <td>
+         <div class="status_red">미승인</div>
+       </td>
+     </tr>
+     <tr>
+       <td>스텐리</td>
+       <td>침착맨 팝업스토어</td>
+       <td>2024.12.12</td>
+       <td>4342@email.come</td>
+       <td>서울</td>
+       <td>
+         <div class="status_purple">담당자요청</div>
+       </td>
+     </tr>
+   
+   </table>
+   <p>페이징 예정</p>
+   
    </div>
 
   </main>	
