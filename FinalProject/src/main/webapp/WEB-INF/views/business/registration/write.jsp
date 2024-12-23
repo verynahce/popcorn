@@ -205,22 +205,6 @@
     <div class="calendar-container" style="flex: 1; margin-left: 10%; margin-top: 10px;">
         <%@include file="/WEB-INF/include/calender.jsp" %>
     </div>
-
-  <div class="sub_content" style="flex: 1; margin-right:10% ">
-        <div class="sub_day" id="plansContainer"> 
-            <div id="periods">
-                <div class="period" style="display: flex; align-items: center;">
-                    <input type="date" class="date_start"  id="dateStart" onchange="updateCalendarHighlight()">
-                    <input type="date" class="date_end"   id="dateEnd" onchange="updateCalendarHighlight()">
-                    <select class="sub_select" id="planOptions">
-                        <option value="0">플랜</option>
-                    </select>
-                </div>
-                <div id="periodsContainer"> 
-   				</div>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -333,14 +317,14 @@ function resetButtons(activeButton) {
         const periodsContainer = document.getElementById('periodsContainer');
 
         // 플랜 추가 버튼 클릭 이벤트
-        document.getElementById('addPlanButton').addEventListener('click', function() {
-            // 새로운 플랜 요소 생성 후 DOM에 추가
-            const newPlanElement = createPlanElement(planCount);
-            document.getElementById('plansContainer').appendChild(newPlanElement);
-            planCount++; // 플랜 수 증가
-            updatePlanOptions(); // 플랜 옵션 업데이트
-            addPeriodElement(); // 기간 요소 추가
-        });
+document.getElementById('addPlanButton').addEventListener('click', function() {
+    // 새로운 플랜 요소 생성 후 DOM에 추가
+    const newPlanElement = createPlanElement(planCount);
+    document.getElementById('plansContainer').appendChild(newPlanElement);
+    planCount++; // 플랜 수 증가
+    updatePlanOptions(); // 플랜 옵션 업데이트
+    // 기간 요소 추가를 제거했습니다. --> addPeriodElement(); // 기간 요소 추가
+});
 
         // 새로운 플랜 요소를 생성하는 함수
         function createPlanElement(planCount) {
@@ -400,20 +384,6 @@ function resetButtons(activeButton) {
             planOptions.appendChild(newOption); // 새로운 옵션 추가
         }
 
-// 기간 요소 추가 함수
-function addPeriodElement() {
-	i++;
-    const newPeriodHTML = `
-        <div class="period" style="display: flex; align-items: center;">
-            <input type="date" class="date_start" id="dateStart${i}" onchange="updateCalendarHighlights(${i})">
-            <input type="date" class="date_end" id="dateEnd${i}" onchange="updateCalendarHighlights(${i})">
-            <select class="sub_select" id="planOptions">
-                <option value="0">플랜</option>
-            </select>
-        </div>
-    `;
-    periodsContainer.insertAdjacentHTML('beforeend', newPeriodHTML); // 기간 요소 추가
-}
 
 
 // 날짜 유효성 검사 함수
