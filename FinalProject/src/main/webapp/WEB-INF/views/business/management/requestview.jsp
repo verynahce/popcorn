@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/browser-scss@1.0.3/dist/browser-scss.min.js"></script>
 <style>
 
+
 </style>
 </head>
 <body>
@@ -45,26 +46,27 @@
   <div class="content_body">
  <div class="content_field">
  <p>요청분야</p>
- <select>
- <option>요청분야</option>
- <option>팝업삭제</option>
- <option>팝업명 변경</option>
- <option>승인결과 변경</option>
- <option>기타 </option>
- </select>
+ <p>팝업삭제</p>
  </div>
  <hr>
  <div class="content_cover">
  <p>요청 상세내용</p>
  <div class="cover_layout">
- <textarea rows="" cols="">상세 내용을 입력하시오</textarea>
+ <textarea rows="" cols="" readonly="readonly">상세 내용을 입력하시오</textarea>
  </div>
+ <hr>
+ <div class="content_response">
+ <p>담당자 답변</p> 
+ <div id="response_detail">
+ 이것저것 해서 승인되었습니다 감사합니다:)
+ 너무 너무너무
+ 너무 너무너므
+ 감사합니다 자주 이용하세요
+</div>
  </div>
 
    </div>
- <div class="cover_layout">
- <input class="btn2" type="submit" value="등록">
-  </div>
+</div>
   
   </form>
   </main>
