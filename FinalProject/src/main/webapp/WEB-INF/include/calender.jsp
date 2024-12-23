@@ -10,8 +10,9 @@
 }
 
 #calendar {
-    width: 300px;
-    text-align: center;
+    width: 350px;
+    height:80px;
+    text-align:center;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -53,14 +54,24 @@
 .color4 { background-color: #90caf9; }
 .color5 { background-color: #ffe57f; }
 .color6 { background-color: #f8bbd0; }
+
+.start-date {
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.end-date {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
 </style>
 
 <div class="content" id="periodContainer" style="display: flex; align-items: flex-start;">
-    <div class="calendar-container" style="flex: 1; margin-left: 10%; margin-top: 10px;">
+    <div class="calendar-container" style="flex: 1;  margin-top: 10px;">
         <div class="no-drag">
             <table id="calendar">
                 <thead>
-                    <tr height="35px">
+                    <tr height="70px">
                         <td><label onclick="prev()" style="color: #ccc;"><</label></td>
                         <td colspan="5" id="monthTable"></td>
                         <td><label onclick="next()" style="color: #ccc;">></label></td>
@@ -153,16 +164,16 @@ function arrayToTable(arr) {
                 cell.innerHTML = cellData.day;
                 cell.classList.add("clickable");
 
-                // 클릭 이벤트 추가: 날짜 클릭 시
-                cell.addEventListener("click", function () {
-                    handleDateClick(cellData.day, cellData.isCurrentMonth, cell);
-                });
-
                 // 오늘 이전 날짜는 클릭 불가
-                let clickedDate = new Date(today.getFullYear(), today.getMonth(), cellData.day);
-                if (clickedDate < today) {
+                   let currentDate = new Date(today.getFullYear(), today.getMonth(), cellData.day);
+                if (currentDate < new Date(new Date().setHours(0, 0, 0, 0))) {
                     cell.classList.remove("clickable");
-                    cell.style.color = "gray";
+                    cell.style.color = "gray"; // 비활성화 스타일
+                } else {
+                    // 유효한 날짜에만 클릭 이벤트 추가
+                    cell.addEventListener("click", function () {
+                        handleDateClick(cellData.day, cellData.isCurrentMonth, cell);
+                    });
                 }
             } else {
                 cell.innerHTML = "";
@@ -172,6 +183,7 @@ function arrayToTable(arr) {
 
     highlightDates(); // 색상 강조 호출
 }
+
 
 function handleDateClick(day, isCurrentMonth, cell) {
     let clickedDate;
@@ -184,6 +196,9 @@ function handleDateClick(day, isCurrentMonth, cell) {
         clickedDate = new Date(today.getFullYear(), today.getMonth() - 1, day);
     }
 
+    
+
+ 
     // 시작일과 종료일을 설정
     if (!selectedStartDate || (selectedEndDate && clickedDate < selectedStartDate)) {
         selectedStartDate = clickedDate;
@@ -233,6 +248,7 @@ function highlightDates() {
     const calendarCells = document.querySelectorAll("#calendar tbody td");
     calendarCells.forEach(cell => {
         cell.style.backgroundColor = "";
+        cell.classList.remove("start-date", "end-date"); // 기존 클래스를 제거
     });
 
     periods.forEach((period, index) => {
@@ -248,15 +264,35 @@ function highlightDates() {
             });
             if (cell) {
                 cell.style.backgroundColor = getColorForPeriod(index);
+
+                // 시작점과 도착점에 스타일 추가
+                if (currentDate.getTime() === startDate.getTime()) {
+                    cell.classList.add("start-date");
+                }
+                if (currentDate.getTime() === endDate.getTime()) {
+                    cell.classList.add("end-date");
+                }
+
                 cell.classList.remove("clickable");
             }
             currentDate.setDate(currentDate.getDate() + 1);
         }
     });
+
+    updateColorCircles(); 
 }
 
 function getColorForPeriod(periodCount) {
-    const colors = ["#90caf9", "#ffeb3b", "#ffccbc", "#c5e1a5", "#ffe57f"];
+	const colors = [
+	    "#90caf9", // 연한 파랑
+	    "#ffeb3b", // 밝은 노랑
+	    "#ffccbc", // 연한 주황
+	    "#c5e1a5", // 연한 초록
+	    "#ffe082", // 연한 금색
+	    "#81d4fa", // 하늘색
+	    "#ffab91", // 연한 복숭아색
+	    "#a5d6a7"  // 연한 민트색
+	];
     return colors[periodCount % colors.length];
 }
 
@@ -264,11 +300,97 @@ function addNewPeriodForm() {
     const periodContainer = document.getElementById('periods');
     const newPeriod = document.createElement('div');
     newPeriod.classList.add('period');
-    newPeriod.innerHTML = `
-        기간 ${periodCount}: ${selectedStartDate.toLocaleDateString()} ~ ${selectedEndDate.toLocaleDateString()}
-        <button class="delete-btn" onclick="removePeriod(this)">X</button>
-    `;
+    
+    // 현재 기간의 시작일과 종료일에 1일 추가 이유 : 지금 현재 선택한 날짜가 UTC 형식이라 값이  하루씩 적어진다고 함 
+    const adjustedStartDate = new Date(selectedStartDate);
+    adjustedStartDate.setDate(adjustedStartDate.getDate() + 1);
+
+    const adjustedEndDate = new Date(selectedEndDate);
+    adjustedEndDate.setDate(adjustedEndDate.getDate() + 1);
+    
+    
+    // 현재 기간의 시작일과 종료일
+    const startDateStr = adjustedStartDate.toISOString().split('T')[0];
+    const endDateStr = adjustedEndDate.toISOString().split('T')[0];
+
+    // 현재 기간에 대응하는 색상
+    const color = getColorForPeriod(periodCount - 1);
+
+    // 색상 동그라미
+    const colorCircle = document.createElement('div');
+    colorCircle.style.width = '20px';
+    colorCircle.style.height = '20px';
+    colorCircle.style.borderRadius = '50%';
+    colorCircle.style.backgroundColor = color;
+    colorCircle.style.marginRight = '10px';
+
+    // 시작 날짜 입력
+    const startDateInput = document.createElement('input');
+    startDateInput.type = 'date';
+    startDateInput.classList.add('time_start');
+    startDateInput.value = startDateStr;
+    startDateInput.style.marginRight = '10px';
+    startDateInput.style.pointerEvents = 'none'; // 클릭 불가
+    
+    // 종료 날짜 입력
+    const endDateInput = document.createElement('input');
+    endDateInput.type = 'date';
+    endDateInput.classList.add('time_end');
+    endDateInput.value = endDateStr;
+    endDateInput.style.marginRight = '10px';
+    endDateInput.style.pointerEvents = 'none'; // 클릭 불가
+    
+    // 플랜 선택
+    const planSelect = document.createElement('select');
+    planSelect.classList.add('sub_select');
+    planSelect.style.marginRight = '10px';
+    const option = document.createElement('option');
+    option.textContent = '플랜';
+    planSelect.appendChild(option);
+
+    // 삭제 버튼
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'X';
+    deleteButton.classList.add('delete-btn');
+    deleteButton.style.color = 'red';
+    deleteButton.style.border = '1px solid red';
+    deleteButton.style.borderRadius = '50%'
+    deleteButton.style.background = 'white';
+    deleteButton.style.padding = '5px 10px';
+    deleteButton.style.cursor = 'pointer';
+    deleteButton.onclick = function () {
+        removePeriod(deleteButton);
+    };
+
+    // 레이아웃 설정
+    const subDayContainer = document.createElement('div');
+    subDayContainer.classList.add('sub_day');
+    subDayContainer.style.display = 'flex';
+    subDayContainer.style.alignItems = 'center';
+    subDayContainer.style.marginBottom = '10px';
+
+    // 자식 요소 추가
+    subDayContainer.appendChild(colorCircle);
+    subDayContainer.appendChild(startDateInput);
+    subDayContainer.appendChild(endDateInput);
+    subDayContainer.appendChild(planSelect);
+    subDayContainer.appendChild(deleteButton);
+
+    newPeriod.appendChild(subDayContainer);
     periodContainer.appendChild(newPeriod);
+}
+
+
+function updateColorCircles() {
+    const periodElements = document.querySelectorAll('#periods .period');
+    periodElements.forEach((periodElement, index) => {
+        // 동그라미를 나타내는 요소를 정확히 선택
+        const colorCircle = periodElement.querySelector('.sub_day > div:first-child'); // 첫 번째 동그라미
+        const color = getColorForPeriod(index); // 새롭게 계산된 색상
+        if (colorCircle) {
+            colorCircle.style.backgroundColor = color; // 동그라미의 색상만 변경
+        }
+    });
 }
 
 function removePeriod(button) {
@@ -282,4 +404,8 @@ function removePeriod(button) {
 }
 
 makeArray();
+
+
+
+
 </script>

@@ -61,7 +61,7 @@ dependencies {
     // Spring Security Taglibs
     implementation 'org.springframework.security:spring-security-taglibs'
 
-}
+
 
 tasks.named('bootBuildImage') {
     builder = 'paketobuildpacks/builder-jammy-base:latest'
