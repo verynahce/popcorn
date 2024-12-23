@@ -3,36 +3,35 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>POP CORN - 로그인</title>
+    <title>POP CORN.biz - 로그인</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/common-company.css" />
     <style type="text/css">
         main {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: "Pretendard", sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            margin: 0;
             height: 75vh;
         }
 
         .user-login {
-            background-color: #121212;
             border-radius: 10px;
             padding: 40px;
             width: 400px;
+            
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             text-align: center;
             border: 4px solid #00FF84;
         }
 
-        ._32 {
+        h2 {
         	width: 300px;
         	height: auto;
         	margin: 0 auto; /* 가운데 정렬 */
             margin-bottom: 20px;
+            font-size: 40px;
+            color: #00FF84;
         }
 
         input[name="id"] {
@@ -57,7 +56,6 @@
             background-color: #00FF84; /* 초록색 */
             border: none;
             border-radius: 5px;
-            color: #000000;
             font-size: 18px;
             font-weight:bold;
             cursor: pointer;
@@ -65,7 +63,6 @@
         }
 
         .link {
-            color: #ffffff;
             font-size: 14px;
             text-decoration: none;
         }
@@ -80,10 +77,10 @@
 </head>
 
 <body>
-    <%@include file="/WEB-INF/include/header.jsp" %>
+    <%@include file="/WEB-INF/include/header_company.jsp" %>
     <main>
         <div class="user-login">
-            <a href="/"><img class="_32" src="/images/mainlogo.png" /></a>
+            <a href="/Business"><h2>POPCORN.Biz</h2></a>
 <form id="loginForm">
     <input type="text" id="id" name="id" placeholder="아이디" />
     <input type="password" id="password" name="password" placeholder="비밀번호" />
@@ -111,7 +108,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     }
 
     try {
-        const response = await fetch('/Users/Login', {
+        const response = await fetch('/Companys/Login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id, password }),
@@ -137,6 +134,6 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
 </script>
     </main>
-    <%@include file="/WEB-INF/include/footer.jsp" %>
+    <%@include file="/WEB-INF/include/footer_company.jsp" %>
 </body>
 </html>
