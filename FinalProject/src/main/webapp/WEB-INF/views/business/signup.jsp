@@ -3,15 +3,15 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>POP CORN - 회원가입</title>
-    <link rel="stylesheet" href="/css/common.css" />
+    <title>POP CORN.biz - 회원가입</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="/css/common-company.css" />
     <style type="text/css">
 
         main{
-                    color: #00ff84;
+            color: #00ff84;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -104,7 +104,7 @@
     </style>
 </head>
 
-<%@include file="/WEB-INF/include/header.jsp" %>
+<%@include file="/WEB-INF/include/header_company.jsp" %>
 <body>
     <main>
         <div class="container">
@@ -230,6 +230,6 @@ birthdate.addEventListener('change', function() {
 });
 </script>
     </main>
-<%@include file="/WEB-INF/include/footer.jsp" %>
+<%@include file="/WEB-INF/include/footer_company.jsp" %>
 </body>
 </html>

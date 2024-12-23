@@ -30,6 +30,12 @@ public class HomeController {
 
 	}
 	
+	@RequestMapping("/Operation")
+	public String operationform() {
+		return "business/operation/operation";
+
+	}
+	
 
 	
 }

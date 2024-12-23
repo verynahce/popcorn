@@ -364,6 +364,7 @@
 	</style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="/css/common.css" />
 
     <header>
         <div class="header">
@@ -389,11 +390,11 @@
                 </a>
             </div>
 			<div class="header-util">
-<form id="logoutForm" method="POST" action="/Users/Logout">
-    <sec:authorize access="isAuthenticated()">
-        <button id="logout-button" type="button">로그아웃</button>
-    </sec:authorize>
-</form>
+				<form id="logoutForm" method="POST" action="/Users/Logout">
+				    <sec:authorize access="isAuthenticated()">
+				        <button id="logout-button" type="button">로그아웃</button>
+				    </sec:authorize>
+				</form>
 			    <sec:authorize access="isAnonymous()">
 			        <a href="/Users/LoginForm"><div class="div3">로그인</div></a>
 			        <img class="line-1" src="/images/header/line-1.svg" alt="구분선" />
@@ -492,17 +493,35 @@
 
 <script type="text/javascript">
     /* 로그아웃 */
-document.getElementById('logout-button').addEventListener('click', function(event) {
-    event.preventDefault();
+// DOMContentLoaded로 페이지가 로드된 후 실행
+document.addEventListener('DOMContentLoaded', function() {
+    // 로컬 스토리지에서 토큰 확인하여 로그인 상태에 따른 폼 표시
+    if (localStorage.getItem('token')) {
+        document.getElementById('logoutForm').style.display = 'block'; // 로그아웃 폼 표시
+    } else {
+        document.getElementById('logoutForm').style.display = 'none'; // 숨김
+    }
 
-    fetch('/Users/Logout', { method: 'POST' })
-        .then(() => {
-            // 로컬 스토리지에서 토큰 제거
-            localStorage.removeItem('token');
-            // 메인 페이지로 리다이렉트
-            window.location.href = '/';
-        })
-        .catch(error => console.error('Error:', error));
+    // 로그아웃 버튼 클릭 이벤트 리스너
+    const logoutButton = document.getElementById('logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function(event) {
+            event.preventDefault(); // 기본 폼 서브미션 방지
+
+            fetch('/Users/Logout', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    localStorage.removeItem('token'); // 토큰 삭제
+                    window.location.href = '/';
+                } else {
+                    console.error('Failed to log out');
+                }
+            })
+            .catch(error => console.error('Error during logout:', error));
+
+        });
+    }
 });
+
 
     </script>
