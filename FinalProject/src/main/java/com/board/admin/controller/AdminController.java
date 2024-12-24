@@ -18,5 +18,13 @@ public class AdminController {
 		//return "/WEB-INF/views/users/Wallet/wallet.jsp";
 	}
 	
+	@RequestMapping("/M1")
+	public  ModelAndView  M1() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/admin/manager/detail");
+		return mv;
+		//return "/WEB-INF/views/users/Wallet/wallet.jsp";
+	}
+	
 	
 }
