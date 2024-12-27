@@ -3,18 +3,21 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.board.users.mapper.PopcornMapper">  
   
+
+
 <select id="getLogByUserId" resultType="com.board.users.vo.PopcornVo">
- SELECT 
+SELECT 
     LOG_ID, 
     USER_ID, 
     CONTENT, 
     CONTENT_INFO, 
     EARNED_POINTS, 
-    SPENT_POINTS, 
+    SPENT_POINTS,
     TOTAL_POINTS, 
     TO_CHAR(ADD_DATE, 'YYYY-MM-DD') AS ADD_DATE
-  FROM FINAL.POPCORN_LOG
+  FROM FINAL.popcorn_log
   WHERE USER_ID = #{userId}
+  ORDER BY ADD_DATE DESC
 </select>
 
 
@@ -43,6 +46,7 @@
     WHERE
         USER_ID = #{userId}
 </update>
+
 
 
 <update id="AttendToUser">
