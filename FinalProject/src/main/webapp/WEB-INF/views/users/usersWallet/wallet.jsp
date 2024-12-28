@@ -360,6 +360,7 @@ th {
 
 
 
+
         <!-- 일일 출석 체크 -->
         <div class="daily-check">
             <h3>일일 출석체크</h3>
@@ -498,7 +499,8 @@ th {
         }
     });
     
-    
+
+    // 팝콘(체크안된) 칸 안의 포인트 값 가져오기
     function submitAttendance() {
         // "PopcornCharacter" 모양의 아이콘을 찾기
         const popcornItems = document.querySelectorAll('.check-item img[src*="PopcornCharater 1.png"]');
@@ -557,8 +559,22 @@ th {
         }
     });
     
+    //새로고침 (새로운 주 갱신 후 새로고침 주기)
+window.onload = function() {
+    // 세션 스토리지에서 'refreshed' 값 확인
+    if (!sessionStorage.getItem('refreshed')) {
+        // 세션 스토리지에 'refreshed' 값 저장
+        sessionStorage.setItem('refreshed', 'true');
 
-    
+        // 1초 후 페이지 새로고침
+        setTimeout(() => {
+            location.reload(); // 페이지 새로고침
+        }, 1000); // 1초 대기 후 새로고침
+    } else {
+        // 새로고침 후 'refreshed' 값이 저장된 상태에서는 값 삭제
+        sessionStorage.removeItem('refreshed');
+    }
+};
     </script>
 </body>
 </html>

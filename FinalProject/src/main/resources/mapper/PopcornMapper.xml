@@ -47,6 +47,15 @@ SELECT
         USER_ID = #{userId}
 </update>
 
+<update id="updateNewWeekAttend">
+    UPDATE ATTENDANCE
+    SET
+        ATTENDANCE_STATUS = 'OFF',
+        CONSECUTIVE_ATTENDANCE_DAYS = 0
+    WHERE
+        USER_ID = #{userId}
+</update>
+
 
 
 <update id="AttendToUser">

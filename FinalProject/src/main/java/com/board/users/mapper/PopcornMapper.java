@@ -28,6 +28,8 @@ public interface PopcornMapper {
 
 	void updateAttendanceStatus(String userId);
 
+	void updateNewWeekAttend(String userId);
+
 
 
 
