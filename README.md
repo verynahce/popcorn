@@ -19,3 +19,6 @@
 |---|---|---|---|---|
 |[김나희](https://github.com/verynahce)|[김유진](https://github.com/Ratenne)|[이민경](https://github.com/alsrud-602)|[진유찬](https://github.com/imgodjesus)|[채원호](https://github.com/1HO2024)|
 
+# 개발언어
+***
+![Image](https://github.com/user-attachments/assets/2f0267f4-f364-4915-982c-00196aa1b8ac)
