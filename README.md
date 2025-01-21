@@ -5,14 +5,26 @@
 ### 작업기간
 #### 2024/12/11 ~ 2025/01/16
 
-#Members
+# Members
 ***
-##Frontend
+## Frontend
 ***
 |Frontend|Frontend|Frontend|Frontend|Frontend|
+|---|---|---|---|---|
 |김나희(https://github.com/verynahce)|김유진(https://github.com/Ratenne)|이민경(https://github.com/alsrud-602)|진유찬(https://github.com/imgodjesus)|채원호(https://github.com/1HO2024)|
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href=""><img src="width="100px;" alt="https://github.com/verynahce"/><br /><sub><b>김나희 </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt="https://github.com/Ratenne"/><br /><sub><b>김유진</b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt="https://github.com/alsrud-602"/><br /><sub><b>이민경</b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt="https://github.com/imgodjesus"/><br /><sub><b>진유찬</b></b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="100px;" alt="https://github.com/1HO2024"/><br /><sub><b>채원호</b></sub></a><br /></td>
+     <tr/>
+  </tbody>
+</table>
 
-##Backend
+## Backend
 ***
 |Backend|Backend|Backend|Backend|Backend|
 |김나희(https://github.com/verynahce)|김유진(https://github.com/Ratenne)|이민경(https://github.com/alsrud-602)|진유찬(https://github.com/imgodjesus)|채원호(https://github.com/1HO2024)|
