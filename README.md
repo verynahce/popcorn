@@ -41,4 +41,17 @@
 |---|---|
 |![Image](https://github.com/user-attachments/assets/ca46efd5-da12-428e-912c-cad898d94c8b)|![Image](https://github.com/user-attachments/assets/3872bf1d-9f02-431e-a3dd-5720bdf1c4eb)|
 
+### Main Detail
+|**Main Detail**|
+|---|
+|![Image](https://github.com/user-attachments/assets/7c5382bb-57ce-4eda-bb96-008fc07c7f38)|
+
+|**Detail - Map**|**Detail - Review**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/3b0a539d-abb2-443d-9be0-dd22c1eab85f)|![Image](https://github.com/user-attachments/assets/a7c0ee5c-5f56-4a31-ae2e-eb4777a89ade)|
+
+|**Datil - Review Detail**|**Detail - Review Write&Update**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/d824918c-d252-4be9-bae6-3999a5a75c4a)|![Image](https://github.com/user-attachments/assets/5f9b4eef-b835-48c9-9183-32cfde87c1d6)|
+
 
