@@ -54,4 +54,28 @@
 |---|---|
 |![Image](https://github.com/user-attachments/assets/d824918c-d252-4be9-bae6-3999a5a75c4a)|![Image](https://github.com/user-attachments/assets/5f9b4eef-b835-48c9-9183-32cfde87c1d6)|
 
+### Map
+***
+|**Main**|**Detail**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/6c1dc226-2013-4c27-9905-0d9a5617c1cc)|![Image](https://github.com/user-attachments/assets/bbe65d1f-5a6b-4197-95df-adaf18e4a227)|
 
+### Profile
+***
+|**Profile**|
+|---|
+|![Image](https://github.com/user-attachments/assets/30845bc2-ae1e-4302-aa78-2c14b57b795a)|
+
+|**Reservation**|**BookMark**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/d0ff9d89-0087-405a-b86a-a95c20e5ef4a)|![Image](https://github.com/user-attachments/assets/f2bdd54e-f0ae-4ab0-a0f8-4fc0285ea79b)|
+
+|**Recommend**|**My Review**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/97d8117b-db7b-4f9e-9b04-022665817a66)|![Image](https://github.com/user-attachments/assets/0445a139-94bd-46f9-88f4-6ef0890f1d48)|
+
+### Wallet(Rewards)
+***
+|**Wallet**|**Path**|**Path Detail**|
+|---|---|---|
+|![Image](https://github.com/user-attachments/assets/5fab1a3c-cec0-4f4f-8a45-01a2774eed00)|![Image](https://github.com/user-attachments/assets/a168599d-818e-44a8-9d55-b2e5328ec72b)|![Image](https://github.com/user-attachments/assets/00761942-f479-4274-a790-6a0764e5caa6)|
