@@ -25,6 +25,8 @@
 
 # Feature
 ***
+
+
 ## 사용자
 ### Login & Signup
 ***
@@ -81,6 +83,8 @@
 |---|---|---|
 |![Image](https://github.com/user-attachments/assets/5fab1a3c-cec0-4f4f-8a45-01a2774eed00)|![Image](https://github.com/user-attachments/assets/a168599d-818e-44a8-9d55-b2e5328ec72b)|![Image](https://github.com/user-attachments/assets/00761942-f479-4274-a790-6a0764e5caa6)|
 
+
+
 ## 스토어 담당자
 ***
 ### Login & Signup
@@ -128,4 +132,38 @@
 |**사전예약**|
 |---|
 |![Image](https://github.com/user-attachments/assets/87af3843-0cba-4751-82e4-20d358d09ad1)|
+
+
+## 관리자
+|**대시보드**|
+|---|
+|![Image](https://github.com/user-attachments/assets/37ed7ad2-6675-4ff2-bcab-bafef4069f9c)|
+
+#### 스토어 관리
+|**스토어관리**|
+|---|
+|![Image](https://github.com/user-attachments/assets/70c57867-2242-4551-85f8-6adc7dd0eb47)|
+
+|**스토어 상세정보**|
+|---|
+|![Image](https://github.com/user-attachments/assets/f790e729-298c-4f7a-a09d-849275e7f042)|
+
+|**스토어 수정**|
+|---|
+|![Image](https://github.com/user-attachments/assets/eaf9d3a8-3e87-4072-987a-6f9c922e431c)|
+
+#### 스토어 담당자
+|**스토어 담당자**|**스토어 담당자 상세**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/e8090b2e-88df-42b1-ad3a-ca5dc9829575)|![Image](https://github.com/user-attachments/assets/36345b18-333c-4e2e-9f70-9611fc63910e)|
+
+#### 유저 관리
+|**유저 리스트**|**유저 상세**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/a44619f9-de9e-4090-a62d-32ccfeb342d0)|![Image](https://github.com/user-attachments/assets/a35eb98e-7cca-4a73-9b65-e5c99721bd23)|
+
+#### 배너관리
+|**배너**|
+|---|
+|![Image](https://github.com/user-attachments/assets/571ebd94-ab7d-4b53-bafb-17068ece7b38)|
 
