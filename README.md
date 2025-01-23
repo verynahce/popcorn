@@ -25,6 +25,7 @@
 
 # Feature
 ***
+## 사용자
 ### Login & Signup
 ***
 |**회원가입**|**로그인**|
@@ -79,3 +80,52 @@
 |**Wallet**|**Path**|**Path Detail**|
 |---|---|---|
 |![Image](https://github.com/user-attachments/assets/5fab1a3c-cec0-4f4f-8a45-01a2774eed00)|![Image](https://github.com/user-attachments/assets/a168599d-818e-44a8-9d55-b2e5328ec72b)|![Image](https://github.com/user-attachments/assets/00761942-f479-4274-a790-6a0764e5caa6)|
+
+## 스토어 담당자
+***
+### Login & Signup
+|**Login**|**Signup**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/99894606-583d-4fe2-b793-5d8dd355c275)|![Image](https://github.com/user-attachments/assets/67f16276-4e50-42e7-a2df-816b77cf7de1)|
+***
+### 운영
+|**사전예약**|
+|---|
+|![Image](https://github.com/user-attachments/assets/b5696692-657a-4227-97d0-a9ae62f13187)|
+
+|**현장문의**|
+|---|
+|![Image](https://github.com/user-attachments/assets/da2c27dd-13b5-4f34-ab8d-bfb9139043e9)|
+
+|**현장예약대기**|
+|---|
+|![Image](https://github.com/user-attachments/assets/49f337d9-3b5f-451b-b8c0-8ff911808f77)|
+
+|**예약**|**수정**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/761da38f-7d2d-42bb-8809-a6e072e4a086)|![Image](https://github.com/user-attachments/assets/ca0859e8-289e-49da-971e-b408ef0aee62)|
+***
+
+### 관리
+|**스토어 내역**|
+|---|
+|![Image](https://github.com/user-attachments/assets/cf48c838-5b0b-4183-9448-5d3f69489fab)|
+
+|**예약내역 확인 및 수정**|
+|---|
+|![Image](https://github.com/user-attachments/assets/36f45099-3cd3-4be1-890a-69e1734c812e)|
+
+|**관리자 요청**|
+|---|
+|![Image](https://github.com/user-attachments/assets/3395d9fa-a076-4c09-ac32-affb4f3e1314)|
+***
+
+### 등록
+|**등록**|
+|---|
+|![Image](https://github.com/user-attachments/assets/2f8bd989-59d2-4e0c-9dd6-ee9ceeed25fe)|
+
+|**사전예약**|
+|---|
+|![Image](https://github.com/user-attachments/assets/87af3843-0cba-4751-82e4-20d358d09ad1)|
+
