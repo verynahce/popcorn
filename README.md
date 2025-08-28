@@ -1,3 +1,4 @@
+<img width="959" height="537" alt="image" src="https://github.com/user-attachments/assets/cc719277-6049-4232-a383-5ebcbb06edb0" />
 
 # Introduce
 ###### **POPCORN**은 팝업스토어 예약 플랫폼이며 창의적인 브랜드와 소비자 간의 새로운 만남을 제공합니다. 사용자는 간편한 인터페이스를 통해 다양한 팝업스토어를 탐색하고, 원하는 날짜와 장소를 선택하여 손쉽게 예약할 수 있습니다.브랜드는 이 플랫폼을 통해 더 많은 고객에게 다가가고, 소비자는 독특한 쇼핑 경험을 즐길 수 있습니다. 팝업스토어의 위치, 테마, 운영 시간 등 다양한 정보를 제공하여 최적의 선택을 도와드립니다.
@@ -5,10 +6,11 @@
 ### 작업기간
 #### 2024/12/11 ~ 2025/01/16
 
-# 실시간 예약 하이라이트시연영상
+# 핵심 기능 시연영상
 
 #### 사진 클릭시 이동
-[![시연 영상 클릭하기](https://img.youtube.com/vi/AL6hZP5hm5M/0.jpg)](https://youtu.be/AL6hZP5hm5M)
+[![시연 영상](<img width="1920" height="1080" alt="포폴용 시연연상 썸네일 -나히" src="https://github.com/user-attachments/assets/2a65873a-ace1-4c68-a471-aaed288ad859" />)](https://youtu.be/AL6hZP5hm5M)
+
 
 #### 전체시연영상
 https://youtu.be/f_H1YPZHJ60 
