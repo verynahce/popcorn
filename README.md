@@ -1,15 +1,16 @@
 <img width="959" height="537" alt="image" src="https://github.com/user-attachments/assets/cc719277-6049-4232-a383-5ebcbb06edb0" />
 
 # Introduce
-###### **POPCORN**은 팝업스토어 예약 플랫폼이며 창의적인 브랜드와 소비자 간의 새로운 만남을 제공합니다. 사용자는 간편한 인터페이스를 통해 다양한 팝업스토어를 탐색하고, 원하는 날짜와 장소를 선택하여 손쉽게 예약할 수 있습니다.브랜드는 이 플랫폼을 통해 더 많은 고객에게 다가가고, 소비자는 독특한 쇼핑 경험을 즐길 수 있습니다. 팝업스토어의 위치, 테마, 운영 시간 등 다양한 정보를 제공하여 최적의 선택을 도와드립니다.
+###### **POPCORN** 은 팝업스토어 예약 플랫폼입니다.  
+실시간 예약, 팝업 코스 설정, 지도 기반 위치 확인, 팝업 정보 제공 기능을 지원하여  브랜드에는 효율적인 홍보 채널을, 소비자에게는 편리하고 맞춤형 쇼핑 경험을 제공합니다.  
 
 ### 작업기간
 #### 2024/12/11 ~ 2025/01/16
 
 # 핵심 기능 시연영상
 
-#### 사진 클릭시 이동
-[![시연 영상](<img width="1920" height="1080" alt="포폴용 시연연상 썸네일 -나히" src="https://github.com/user-attachments/assets/2a65873a-ace1-4c68-a471-aaed288ad859" />)](https://youtu.be/AL6hZP5hm5M)
+#### 사진 클릭시 이동 >>
+[<img src="https://github.com/user-attachments/assets/2a65873a-ace1-4c68-a471-aaed288ad859" width="640"/>](https://youtu.be/AL6hZP5hm5M)
 
 
 #### 전체시연영상
@@ -17,19 +18,19 @@ https://youtu.be/f_H1YPZHJ60
 
 
 
-# Members
-## Frontend
-|Frontend|Frontend|Frontend|Frontend|Frontend|
-|---|---|---|---|---|
-|[김나희](https://github.com/verynahce)|[김유진](https://github.com/Ratenne)|[이민경](https://github.com/alsrud-602)|[진유찬](https://github.com/imgodjesus)|[채원호](https://github.com/1HO2024)|
-
-## Backend
-|Backend|Backend|Backend|Backend|Backend|
-|---|---|---|---|---|
-|[김나희](https://github.com/verynahce)|[김유진](https://github.com/Ratenne)|[이민경](https://github.com/alsrud-602)|[진유찬](https://github.com/imgodjesus)|[채원호](https://github.com/1HO2024)|
-
 # 개발언어
 ![Image](https://github.com/user-attachments/assets/2f0267f4-f364-4915-982c-00196aa1b8ac)
+
+# 담당 업무
+**기업 담당자 웹 페이지 전반 개발 및 예약/입점 관리 기능 구현**
+
+- 팝업스토어 입점 게시글 CRUD(등록·수정·삭제) 기능 구현
+- 사전예약 시스템 개발: 기간 설정, 예약 인원 관리, 예약 타임 슬롯 설정
+- 실시간 예약 기능 구현: WebSocket 기반 예약 취소/확인 및 순번 알림 처리
+- 관리자 기능 개발: 팝업 게시글 삭제·수정 요청 처리
+- 기업 담당자 회원 정보 수정 기능 구현
+- 실시간 예약 대기 현황 조회 기능 개발
+- 앱 내 **예약 미루기(대기자 순번 조정)** 기능 추가
 
 # Feature
 
