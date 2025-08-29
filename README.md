@@ -1,3 +1,5 @@
+<h1>팝업스토어 플랫폼 프로젝트 - 팝콘(POPCORN)</h1>
+
 <img width="959" height="537" alt="image" src="https://github.com/user-attachments/assets/cc719277-6049-4232-a383-5ebcbb06edb0" />
 <ul>
   <li>프로젝트 기간 : 2024.11.19 ~ 2024.11.29 (10일)</li>
@@ -22,7 +24,7 @@
 &nbsp
 
 
-<h2>담당 업무 </h2>
+<h2>담당 업무</h2>
 
 #### 기업 담당자 웹 페이지 전반 개발 및 예약/입점 관리 기능 구현
 
