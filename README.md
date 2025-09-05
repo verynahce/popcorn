@@ -4,7 +4,7 @@
 <ul>
   <li>프로젝트 기간 : 2024.11.19 ~ 2024.11.29 (10일)</li>
 </ul>
-
+<br>
 <h2>프로젝트 소개</h2>
 <ul>
   <li>POPCORN은 팝업스토어 예약 플랫폼입니다.  </li> 
@@ -38,6 +38,7 @@
  <li>앱 내 **예약 미루기(대기자 순번 조정)** 기능 추가</li> 
 </ul>
 
+<br>
 
 # 개발언어
 ![Image](https://github.com/user-attachments/assets/2f0267f4-f364-4915-982c-00196aa1b8ac)
@@ -376,7 +377,8 @@ public class WaitingFacadeService {
 |![Image](https://github.com/user-attachments/assets/571ebd94-ab7d-4b53-bafb-17068ece7b38)|
 ***
 
-##모바일 UI
+## 모바일 UI
+
 ### 사용자
 #### 로그인
 |**Login**|**Sign**|
@@ -427,6 +429,7 @@ public class WaitingFacadeService {
 |---|---|
 |![Image](https://github.com/user-attachments/assets/28a2593b-4c18-4c38-be8a-aa251dbb99a7)|![Image](https://github.com/user-attachments/assets/dad1546c-45ad-4319-bb74-1e2df86e2e84)|
 
+<br>
 
 # ERD
 <img width="1473" height="727" alt="KakaoTalk_20250116_153133481" src="https://github.com/user-attachments/assets/278a23e7-7249-43b7-868f-7c2cf9ca2a6c" />
