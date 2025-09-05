@@ -48,14 +48,157 @@
 # ERD
 <img width="1473" height="727" alt="KakaoTalk_20250116_153133481" src="https://github.com/user-attachments/assets/278a23e7-7249-43b7-868f-7c2cf9ca2a6c" />
 
+
 # 트러블 슈팅
 
-1. **문제 상황**
-    - 실시간 예약 시 다수 사용자 동시 요청으로 Race Condition(경합 조건) 발생 → 대기 순번 꼬임 및 중복 예약 문제
-    - 예약/상태 변경/포인트 차감 로직이 단일 서비스 계층에 집중되어 SRP(단일 책임 원칙) 위배 및 롤백 처리 불안정
-2. **개선 방안**
-    - 트랜잭션 범위를 최소화하고 DB Isolation Level을 조정하여 동시성 제어
-    - 예약, 포인트, 알림으로 비즈니스 로직 계층 분리 분리하여 서비스 간 책임을 명확히 구분
+
+### 1. 사례 – 실시간 예약 Race Condition & SRP 위배
+
+**문제**  
+- 실시간 예약 시 다수 사용자 동시 요청으로 **Race Condition(경합 조건)** 발생  
+- 예약 순번 꼬임 및 중복 예약 문제 발생  
+- 예약/상태 변경/포인트 차감 로직이 단일 서비스 계층에 집중되어 **SRP(단일 책임 원칙) 위배** 및 롤백 처리 불안정
+
+**해결**  
+- DB **Isolation Level**을 `REPEATABLE READ` → `SERIALIZABLE` 수준으로 조정하여 동시성 제어 강화  
+- 트랜잭션 범위를 최소화하여 Deadlock 위험 감소  
+- 예약/포인트/알림 서비스로 비즈니스 로직을 **분리(Service Layer 분리)** 하여 책임을 명확히 하고 롤백 안정성 확보
+
+```java
+// ReservationService.java
+@Transactional(isolation = Isolation.SERIALIZABLE)
+public void reserve(int userId, int storeId) {
+    if (reservationMapper.existsByUserAndStore(userId, storeId) > 0) {
+        throw new DuplicateReservationException();
+    }
+    reservationMapper.insertReservation(userId, storeId, LocalDateTime.now());
+}
+
+// PointService.java
+@Transactional
+public void deductPoints(int userId, int amount) {
+    User user = userMapper.findById(userId);
+    if (user.getPoints() < amount) throw new InsufficientPointsException();
+    userMapper.updatePoints(userId, user.getPoints() - amount);
+}
+
+// NotificationService.java
+public void notifyReservation(int userId, int storeId) {
+    notificationSender.send(userId, "예약 완료: 매장 " + storeId);
+}
+```
+
+### 2. 사례 – 네이버 지도 API Submodule 적용 불가 문제
+
+**문제**  
+- 네이버 지도 API의 `geolocation` 서브모듈은 **HTTPS 환경에서만 동작**  
+- `localhost` 개발 단계에서는 호출이 불가하여 지도 초기화 실패 및 주소 → 좌표 변환 불가 문제 발생
+
+**해결 (임시 대체)**  
+- 개발 단계에서는 **Nominatim(OpenStreetMap) API**를 사용해 주소를 위도·경도로 변환  
+- 네이버 지도 객체에는 변환된 좌표를 직접 주입하여 로컬 환경에서도 정상적으로 지도 렌더링 가능
+
+```javascript
+// 개발 환경: Nominatim 대체 적용
+const requestUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' 
+    + encodeURIComponent(storeAddress);
+
+fetch(requestUrl)
+    .then(response => response.json())
+    .then(result => {
+        const latitude = result[0].lat;
+        const longitude = result[0].lon;
+        const mapCenter = new naver.maps.LatLng(latitude, longitude);
+
+        const map = new naver.maps.Map('map', {
+            center: mapCenter,
+            zoom: 14
+        });
+
+        new naver.maps.Marker({
+            position: mapCenter,
+            map: map
+        });
+    })
+    .catch(error => console.error('좌표 변환 오류:', error));
+
+```
+- 운영 환경(HTTPS)에서는 네이버 API의 geolocation을 그대로 사용하는 것이 권장
+-   Nominatim은 무료 API라 트래픽이 몰리면 속도가 느리거나 차단되거나 주소가 약간의 오차가 생길 수 있다는 단점이 있으나 개발단계라서 접목해서 진행 운영과 개발을 분리하면 더 도움 될 것같다는 생각을 했음
+
+
+
+## 3. 사례 – 실시간 예약 대기 평균 그래프 집계 오류
+
+**문제**  
+- 가게별 실시간 예약 대기 평균 시간을 그래프로 표현해야 했으나,  
+  - 단순 등록 시점(`cdate`) 기준으로 계산 시 실제 체감 대기 시간과 불일치 발생  
+  - 그래프가 시간 단위가 아닌 이벤트 발생 단위로 집계되어 고객이 보기 어려움  
+- 특히 **예약 대기 완료 시점**을 기준으로 하지 않으면, 혼잡 시간대의 대기 시간이 왜곡되는 문제가 발생
+
+**해결**  
+- **대기 완료 시점(`edate`) 기준**으로 대기 시간을 측정  
+- 30분 단위로 버킷팅(`00분/30분`) 하여 구간별 평균을 계산  
+- Chart.js에서 해당 데이터를 `label=HH:mm`, `data=average`로 바인딩하여 시각화  
+- 고객은 상세 페이지에서 **30분 단위 팝업 발생 시점**에만 평균 그래프 확인 가능하도록 구현  
+
+```java
+// Service: 30분 단위 평균 대기시간 집계
+@Override
+public List<Map<String, Object>> getTimeGrape(int storeIdx) {
+    List<Map<String, String>> waitingData = watingMapper.getWatingTime(storeIdx);
+    Map<LocalDateTime, List<Long>> timeBuckets = new TreeMap<>();
+
+    for (Map<String, String> entry : waitingData) {
+        LocalDateTime cdate = LocalDateTime.parse(entry.get("CDATE"), formatter);
+        LocalDateTime edate = LocalDateTime.parse(entry.get("EDATE"), formatter);
+
+        long waitMinutes = ChronoUnit.MINUTES.between(cdate, edate);
+
+        // 종료 시점을 30분 단위로 버킷팅
+        LocalDateTime bucket = edate.truncatedTo(ChronoUnit.HOURS)
+                                    .plusMinutes((edate.getMinute() / 30) * 30);
+
+        timeBuckets.computeIfAbsent(bucket, k -> new ArrayList<>()).add(waitMinutes);
+    }
+
+    // 구간별 평균 계산
+    return timeBuckets.entrySet().stream()
+            .map(entry -> {
+                Map<String, Object> result = new HashMap<>();
+                result.put("time", entry.getKey());
+                result.put("average", entry.getValue().stream()
+                                  .mapToLong(Long::longValue)
+                                  .average()
+                                  .orElse(0.0));
+                return result;
+            })
+            .collect(Collectors.toList());
+}
+```
+```
+// Front: Chart.js 시각화 (30분 단위 평균 대기시간)
+function waitingTime(storeIdx) {
+    fetch(`/api/waiting/timegrape?store_idx=${storeIdx}`)
+        .then(res => res.json())
+        .then(jsonData => {
+            const labels = jsonData.map(item => {
+                const date = new Date(item.time);
+                return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+            });
+            const data = jsonData.map(item => item.average);
+
+            if (trafficChart) trafficChart.destroy();
+            trafficChart = new Chart(ctx, {
+                type: 'bar',
+                data: { labels, datasets: [{ label: '평균 대기 소요 시간(분)', data }] },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        })
+        .catch(err => console.error('Error fetching data:', err));
+}
+```
+
 
 # Feature
 
