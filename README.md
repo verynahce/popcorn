@@ -45,9 +45,6 @@
 
 
 
-# ERD
-<img width="1473" height="727" alt="KakaoTalk_20250116_153133481" src="https://github.com/user-attachments/assets/278a23e7-7249-43b7-868f-7c2cf9ca2a6c" />
-
 
 # 트러블 슈팅
 
@@ -427,3 +424,6 @@ public class WaitingFacadeService {
 |---|---|
 |![Image](https://github.com/user-attachments/assets/28a2593b-4c18-4c38-be8a-aa251dbb99a7)|![Image](https://github.com/user-attachments/assets/dad1546c-45ad-4319-bb74-1e2df86e2e84)|
 
+
+# ERD
+<img width="1473" height="727" alt="KakaoTalk_20250116_153133481" src="https://github.com/user-attachments/assets/278a23e7-7249-43b7-868f-7c2cf9ca2a6c" />
