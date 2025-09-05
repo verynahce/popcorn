@@ -86,7 +86,7 @@ fetch(requestUrl)
 - 운영 환경(HTTPS)에서는 네이버 API의 geolocation을 그대로 사용하는 것이 권장
 -   Nominatim은 무료 API라 트래픽이 몰리면 속도가 느리거나 차단되거나 주소가 약간의 오차가 생길 수 있다는 단점이 있으나 개발단계라서 접목해서 진행 운영과 개발을 분리하면 더 도움 될 것같다는 생각을 했음
 
-
+<br>
 
 ### 2. 사례 – 실시간 예약 대기 평균 그래프 집계 오류
 
@@ -158,6 +158,7 @@ function waitingTime(storeIdx) {
         .catch(err => console.error('Error fetching data:', err));
 }
 ```
+<br>
 
 ### 3. 사례 – WebSocket 구독 다중 유지 시 화면 동기화 문제
 
@@ -195,6 +196,8 @@ function onCarouselChange(storeIdx) {
   console.log(`현재 화면 매장: ${currentCompanyIdx}`);
 }
 ```
+<br>
+
 ### 4. 사례 – 실시간 예약 Race Condition & SRP 위배
 
 **문제**  
