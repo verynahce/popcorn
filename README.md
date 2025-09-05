@@ -51,44 +51,7 @@
 
 # 트러블 슈팅
 
-
-### 1. 사례 – 실시간 예약 Race Condition & SRP 위배
-
-**문제**  
-- 실시간 예약 시 다수 사용자 동시 요청으로 **Race Condition(경합 조건)** 발생  
-- 예약 순번 꼬임 및 중복 예약 문제 발생  
-- 예약/상태 변경/포인트 차감 로직이 단일 서비스 계층에 집중되어 **SRP(단일 책임 원칙) 위배** 및 롤백 처리 불안정
-
-**해결**  
-- DB **Isolation Level**을 `REPEATABLE READ` → `SERIALIZABLE` 수준으로 조정하여 동시성 제어 강화  
-- 트랜잭션 범위를 최소화하여 Deadlock 위험 감소  
-- 예약/포인트/알림 서비스로 비즈니스 로직을 **분리(Service Layer 분리)** 하여 책임을 명확히 하고 롤백 안정성 확보
-
-```java
-// ReservationService.java
-@Transactional(isolation = Isolation.SERIALIZABLE)
-public void reserve(int userId, int storeId) {
-    if (reservationMapper.existsByUserAndStore(userId, storeId) > 0) {
-        throw new DuplicateReservationException();
-    }
-    reservationMapper.insertReservation(userId, storeId, LocalDateTime.now());
-}
-
-// PointService.java
-@Transactional
-public void deductPoints(int userId, int amount) {
-    User user = userMapper.findById(userId);
-    if (user.getPoints() < amount) throw new InsufficientPointsException();
-    userMapper.updatePoints(userId, user.getPoints() - amount);
-}
-
-// NotificationService.java
-public void notifyReservation(int userId, int storeId) {
-    notificationSender.send(userId, "예약 완료: 매장 " + storeId);
-}
-```
-
-### 2. 사례 – 네이버 지도 API Submodule 적용 불가 문제
+### 1. 사례 – 네이버 지도 API Submodule 적용 불가 문제
 
 **문제**  
 - 네이버 지도 API의 `geolocation` 서브모듈은 **HTTPS 환경에서만 동작**  
@@ -128,7 +91,7 @@ fetch(requestUrl)
 
 
 
-### 3. 사례 – 실시간 예약 대기 평균 그래프 집계 오류
+### 2. 사례 – 실시간 예약 대기 평균 그래프 집계 오류
 
 **문제**  
 - 가게별 실시간 예약 대기 평균 시간을 그래프로 표현해야 했으나,  
@@ -199,7 +162,83 @@ function waitingTime(storeIdx) {
 }
 ```
 
+### 3. 사례 – WebSocket 구독 다중 유지 시 화면 동기화 문제
 
+**문제**  
+- 매장별 WebSocket 채널(`/topic/Waiting/{storeIdx}`)을 모두 구독해 두는 구조  
+- 캐러셀 화면 전환 시 특정 매장 화면만 보여줘야 하지만,  
+  - 모든 구독 데이터가 한 번에 반영되면서 **대기 리스트가 섞여 표시**되는 문제가 발생  
+
+**해결**  
+- 구독 자체는 여러 개 유지 (`subscriptionMap`에 저장)  
+- 다만, 캐러셀 전환 시 `currentCompanyIdx`를 기준으로 **현재 활성화된 매장 데이터만 화면에 반영**하도록 로직 개선  
+- 불필요한 중복 렌더링을 막아 **화면 동기화 안정성**을 확보  
+
+```javascript
+let subscriptionMap = {};
+let currentCompanyIdx = null;
+
+// 매장 구독 등록 (여러 매장 동시에 구독 가능)
+function subscribeStore(storeIdx) {
+  const subscription = stompClient.subscribe(`/topic/Waiting/${storeIdx}`, function(message) {
+    const waitingList = JSON.parse(message.body);
+
+    // 현재 캐러셀 매장과 일치할 때만 UI 반영
+    if (storeIdx === currentCompanyIdx) {
+      updateWaitingList(waitingList);
+    }
+  });
+
+  subscriptionMap[storeIdx] = subscription;
+}
+
+// 캐러셀 이동 시 현재 매장 변경
+function onCarouselChange(storeIdx) {
+  currentCompanyIdx = storeIdx;
+  console.log(`현재 화면 매장: ${currentCompanyIdx}`);
+}
+```
+### 4. 사례 – 실시간 예약 Race Condition & SRP 위배
+
+**문제**  
+- 실시간 예약 시 다수 사용자 동시 요청으로 **Race Condition(경합 조건)** 발생  
+- 예약 순번 꼬임 및 중복 예약 문제 발생  
+- 예약/상태 변경/포인트 차감 로직이 단일 서비스 계층에 집중되어 **SRP(단일 책임 원칙) 위배** 및 롤백 처리 불안정
+
+**해결**  
+- `@Transactional`을 적용하여 예약 상태 변경, 노쇼 처리, 순번 재정렬을 **원자적(Atomic)**으로 처리  
+- 트랜잭션 단위에서 예외 발생 시 전체 작업을 롤백하여 데이터 무결성 보장  
+- 예약/포인트/알림 로직을 별도 Service로 분리 → 단일 책임 원칙 강화 및 롤백 안정성 확보  
+- (개선 아이디어) 트래픽 증가 시 DB **Isolation Level**을 `SERIALIZABLE`로 조정하거나,  
+  **락(Lock) 기반 제어**를 적용해 Race Condition을 더 강력히 방어할 수 있음
+
+```java
+@Service
+public class WaitingFacadeService {
+    @Autowired private ReservationService reservationService;
+    @Autowired private PointService pointService;
+    @Autowired private WaitingOrderService waitingOrderService;
+    @Autowired private WatingMapper watingMapper;
+
+    @Transactional
+    public List<WaitingDto> updateWatingList(WaitingDto waitingDto) {
+        // 1. 상태 업데이트
+        reservationService.updateStatus(waitingDto);
+
+        // 2. 노쇼 포인트 차감
+        if ("노쇼".equals(waitingDto.getStatus().trim())) {
+            pointService.handleNoShow(waitingDto.getWaiting_idx());
+        }
+
+        // 3. 순번 재정렬
+        int storeIdx = watingMapper.getStore_idxWaiting(waitingDto.getWaiting_idx());
+        waitingOrderService.reorder(storeIdx);
+
+        // 4. 최종 대기 리스트 반환
+        return watingMapper.getWatingList(storeIdx);
+    }
+}
+```
 # Feature
 
 
@@ -212,16 +251,12 @@ function waitingTime(storeIdx) {
 ### Main
 |**Main**|
 |---|
-|![Image](https://github.com/user-attachments/assets/199ab9ab-32a4-4920-8717-371991de14b4)|
-***
-|**Main Detail**|**Main Search**|
-|---|---|
-|![Image](https://github.com/user-attachments/assets/ca46efd5-da12-428e-912c-cad898d94c8b)|![Image](https://github.com/user-attachments/assets/3872bf1d-9f02-431e-a3dd-5720bdf1c4eb)|
+|<img src="https://github.com/user-attachments/assets/199ab9ab-32a4-4920-8717-371991de14b4" width="60%"/>|
 ***
 ### Main Detail
 |**Main Detail**|
 |---|
-|![Image](https://github.com/user-attachments/assets/7c5382bb-57ce-4eda-bb96-008fc07c7f38)|
+|<img src="https://github.com/user-attachments/assets/7c5382bb-57ce-4eda-bb96-008fc07c7f38" width="60%"/>|
 ***
 
 |**Detail - Map**|**Detail - Review**|
@@ -243,7 +278,7 @@ function waitingTime(storeIdx) {
 ### Profile
 |**Profile**|
 |---|
-|![Image](https://github.com/user-attachments/assets/30845bc2-ae1e-4302-aa78-2c14b57b795a)|
+|<img src="https://github.com/user-attachments/assets/30845bc2-ae1e-4302-aa78-2c14b57b795a" width="600"/>|
 ***
 
 |**Reservation**|**BookMark**|
@@ -270,14 +305,9 @@ function waitingTime(storeIdx) {
 |![Image](https://github.com/user-attachments/assets/99894606-583d-4fe2-b793-5d8dd355c275)|![Image](https://github.com/user-attachments/assets/67f16276-4e50-42e7-a2df-816b77cf7de1)|
 ***
 ### 운영
-|**사전예약**|
-|---|
-|![Image](https://github.com/user-attachments/assets/b5696692-657a-4227-97d0-a9ae62f13187)|
-***
-
-|**현장문의**|
-|---|
-|![Image](https://github.com/user-attachments/assets/da2c27dd-13b5-4f34-ab8d-bfb9139043e9)|
+|**사전예약**|**현장문의**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/b5696692-657a-4227-97d0-a9ae62f13187)|![Image](https://github.com/user-attachments/assets/da2c27dd-13b5-4f34-ab8d-bfb9139043e9)|
 ***
 
 |**현장예약대기**|
@@ -298,23 +328,17 @@ function waitingTime(storeIdx) {
 
 |**예약내역 확인 및 수정**|
 |---|
-|![Image](https://github.com/user-attachments/assets/36f45099-3cd3-4be1-890a-69e1734c812e)|
+|<img src="https://github.com/user-attachments/assets/36f45099-3cd3-4be1-890a-69e1734c812e" width="600"/>|
 ***
 
 |**관리자 요청**|
 |---|
 |![Image](https://github.com/user-attachments/assets/3395d9fa-a076-4c09-ac32-affb4f3e1314)|
 ***
-
 ### 등록
-|**등록**|
-|---|
-|![Image](https://github.com/user-attachments/assets/2f8bd989-59d2-4e0c-9dd6-ee9ceeed25fe)|
-***
-
-|**사전예약**|
-|---|
-|![Image](https://github.com/user-attachments/assets/87af3843-0cba-4751-82e4-20d358d09ad1)|
+|**등록**|**사전예약**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/2f8bd989-59d2-4e0c-9dd6-ee9ceeed25fe)|![Image](https://github.com/user-attachments/assets/87af3843-0cba-4751-82e4-20d358d09ad1)|
 ***
 
 
@@ -329,14 +353,9 @@ function waitingTime(storeIdx) {
 |![Image](https://github.com/user-attachments/assets/70c57867-2242-4551-85f8-6adc7dd0eb47)|
 ***
 
-|**스토어 상세정보**|
-|---|
-|![Image](https://github.com/user-attachments/assets/f790e729-298c-4f7a-a09d-849275e7f042)|
-***
-
-|**스토어 수정**|
-|---|
-|![Image](https://github.com/user-attachments/assets/eaf9d3a8-3e87-4072-987a-6f9c922e431c)|
+|**스토어 상세정보**|**스토어 수정**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/f790e729-298c-4f7a-a09d-849275e7f042)|![Image](https://github.com/user-attachments/assets/eaf9d3a8-3e87-4072-987a-6f9c922e431c)|
 ***
 
 #### 스토어 담당자
@@ -366,14 +385,12 @@ function waitingTime(storeIdx) {
 ***
 
 #### 메인화면
-|**Main**|
-|---|
-|![Image](https://github.com/user-attachments/assets/88eb20ee-0973-4a98-9195-93f8d67a2cce)|
+|**Main**|**info**|
+|---|---|
+|![Image](https://github.com/user-attachments/assets/88eb20ee-0973-4a98-9195-93f8d67a2cce)|![Image](https://github.com/user-attachments/assets/0c10a82e-3092-41a5-91d4-5bfbd4e31b01)|
+***
 
-#### 상세페이지
-|**Info**|
-|---|
-|![Image](https://github.com/user-attachments/assets/0c10a82e-3092-41a5-91d4-5bfbd4e31b01)|
+
 
 |**Map**|**Review**|
 |---|---|
@@ -390,7 +407,7 @@ function waitingTime(storeIdx) {
 #### 맵
 |**Map**|
 |---|
-|![Image](https://github.com/user-attachments/assets/0fc53480-99a2-4ba1-ad56-dd95e66bf10a)|
+|<img src="https://github.com/user-attachments/assets/0fc53480-99a2-4ba1-ad56-dd95e66bf10a" width="600"/>|
 ***
 
 #### 예약확인
