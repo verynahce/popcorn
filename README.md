@@ -164,7 +164,7 @@ function waitingTime(storeIdx) {
 ### 3. 사례 – WebSocket 구독 다중 유지 시 화면 동기화 문제
 
 **문제**  
-- 매장별 WebSocket 채널(`/topic/Waiting/{storeIdx}`)을 모두 구독해 두는 구조  
+- 매장별 WebSocket 채널(`/topic/Waiting/{storeIdx}`)을 모두 구독하는 구조  
 - 캐러셀 화면 전환 시 특정 매장 화면만 보여줘야 하지만,  
   - 모든 구독 데이터가 한 번에 반영되면서 **대기 리스트가 섞여 표시**되는 문제가 발생  
 
